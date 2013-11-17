@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>4CADE823-92EB-4228-9EA3-F19D6A5B38CD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Custom Camera Tutorial</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5E0665A1-68EC-482D-A6E7-07B0D9F71B38</key>
+		<string>https://github.com/robotkid249/FunFunFun.git</string>
+		<key>79DB8CF3-459B-4B1F-A117-54C8650FCEEB</key>
+		<string>https://github.com/radi/LiveFrost.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Custom Camera Tutorial.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5E0665A1-68EC-482D-A6E7-07B0D9F71B38</key>
+		<string>../..</string>
+		<key>79DB8CF3-459B-4B1F-A117-54C8650FCEEB</key>
+		<string>../../LiveFrost</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/robotkid249/FunFunFun.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5E0665A1-68EC-482D-A6E7-07B0D9F71B38</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5E0665A1-68EC-482D-A6E7-07B0D9F71B38</string>
+			<key>IDESourceControlWCCName</key>
+			<string>FunFunFun</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>79DB8CF3-459B-4B1F-A117-54C8650FCEEB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>LiveFrost</string>
+		</dict>
+	</array>
+</dict>
+</plist>
