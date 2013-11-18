@@ -769,6 +769,9 @@ static int const kImagePreviewOriginY4inch = 62;
     if (aButton.tag == 1)
     {
         
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setObject:@"at +" forKey:@"verb"];
+        
         for(right in self.view.subviews) {
             
             if (right.tag == 51) {
@@ -843,6 +846,10 @@ static int const kImagePreviewOriginY4inch = 62;
     else if (aButton.tag == 2)
     {
         
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setObject:@"with +" forKey:@"verb"];
+        
+        
         for(right in self.view.subviews) {
             
             if (right.tag == 52) {
@@ -910,6 +917,10 @@ static int const kImagePreviewOriginY4inch = 62;
     
     else if (aButton.tag == 3)
     {
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setObject:@"feeling +" forKey:@"verb"];
+        
         for(right in self.view.subviews) {
             
             if (right.tag == 53) {
@@ -977,6 +988,10 @@ static int const kImagePreviewOriginY4inch = 62;
     
     else if (aButton.tag == 4)
     {
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setObject:@"watching +" forKey:@"verb"];
+        
         for(right in self.view.subviews) {
             
             if (right.tag == 54) {
@@ -1044,6 +1059,9 @@ static int const kImagePreviewOriginY4inch = 62;
     else if (aButton.tag == 5)
     {
         
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setObject:@"eating +" forKey:@"verb"];
+        
         for(right in self.view.subviews) {
             
             if (right.tag == 55) {
@@ -1109,6 +1127,10 @@ static int const kImagePreviewOriginY4inch = 62;
             }}}
     else if (aButton.tag == 6)
     {
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setObject:@"reading +" forKey:@"verb"];
+        
         for(right in self.view.subviews) {
             
             if (right.tag == 56) {

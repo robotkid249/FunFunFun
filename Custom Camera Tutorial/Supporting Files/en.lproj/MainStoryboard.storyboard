@@ -34,10 +34,10 @@
             </objects>
             <point key="canvasLocation" x="-95" y="-706"/>
         </scene>
-        <!--Camera Capture View Controller - Camera Capture-->
+        <!--View Controller - Camera Capture-->
         <scene sceneID="kww-03-FKM">
             <objects>
-                <viewController storyboardIdentifier="CameraCaptureViewController" id="cQc-vU-Vys" customClass="CameraCaptureViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CameraCaptureViewController" id="cQc-vU-Vys" customClass="RSViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qbO-8G-UxJ" userLabel="View - Main">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

@@ -24,6 +24,8 @@
     UIImageView *first;
     UIImageView *second;
     UIImage *imgThing2;
+    NSString *greenText;
+    NSString *secondText;
     NSTimer *_timer;
     int i;
     UIImage *thing;

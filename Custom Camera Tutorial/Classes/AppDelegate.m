@@ -18,7 +18,6 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [Parse setApplicationId:@"euu2KKYfTsJpV7o6g9o6f43gRhbexdmGvoNnmRkD"
                   clientKey:@"ZrxZ9CNawd0hs4jT46dQBfaup8pHBOVT3MZdRjR5"];
-    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 /*

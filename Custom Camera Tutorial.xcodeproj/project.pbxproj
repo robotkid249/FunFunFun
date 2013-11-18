@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6F0470A518396573007D16E0 /* LFDisplayBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0470A118396573007D16E0 /* LFDisplayBridge.m */; };
 		6F0470A618396573007D16E0 /* LFGlassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0470A318396573007D16E0 /* LFGlassView.m */; };
+		6F0470AC1839A71C007D16E0 /* RemachineScript_Personal_Use.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F0470AB1839A71C007D16E0 /* RemachineScript_Personal_Use.ttf */; };
 		6FC0CF95183915AD00225946 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC0CF94183915AD00225946 /* Parse.framework */; };
 		CC0745351829C4B300574631 /* feeling.png in Resources */ = {isa = PBXBuildFile; fileRef = CC0745201829C4B300574631 /* feeling.png */; };
 		CC0745361829C4B300574631 /* at.png in Resources */ = {isa = PBXBuildFile; fileRef = CC0745211829C4B300574631 /* at.png */; };
@@ -184,6 +185,7 @@
 		6F0470A218396573007D16E0 /* LFGlassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFGlassView.h; path = LiveFrost/LiveFrost/LFGlassView.h; sourceTree = SOURCE_ROOT; };
 		6F0470A318396573007D16E0 /* LFGlassView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFGlassView.m; path = LiveFrost/LiveFrost/LFGlassView.m; sourceTree = SOURCE_ROOT; };
 		6F0470A418396573007D16E0 /* LiveFrost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiveFrost.h; path = LiveFrost/LiveFrost/LiveFrost.h; sourceTree = SOURCE_ROOT; };
+		6F0470AB1839A71C007D16E0 /* RemachineScript_Personal_Use.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RemachineScript_Personal_Use.ttf; sourceTree = "<group>"; };
 		6FC0CF94183915AD00225946 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		CC0745201829C4B300574631 /* feeling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = feeling.png; sourceTree = "<group>"; };
 		CC0745211829C4B300574631 /* at.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = at.png; sourceTree = "<group>"; };
@@ -1028,6 +1030,7 @@
 		F8D393D217F9143700344D63 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6F0470AB1839A71C007D16E0 /* RemachineScript_Personal_Use.ttf */,
 				CCFAF76B183474D700A3D410 /* Circa framework */,
 				CCFAF767183474C300A3D410 /* Blur framework */,
 				CC07451F1829C46900574631 /* Ext. Images */,
@@ -1251,6 +1254,7 @@
 				F880651817FA07D7006E8BBF /* camera_button_photo.png in Resources */,
 				F880651917FA07D7006E8BBF /* camera_button_photo@2x.png in Resources */,
 				CC991B69182D9CCC00BDDCDB /* photoooo.png in Resources */,
+				6F0470AC1839A71C007D16E0 /* RemachineScript_Personal_Use.ttf in Resources */,
 				CC991C8018305D7600BDDCDB /* done.png in Resources */,
 				CC0745361829C4B300574631 /* at.png in Resources */,
 				F880652217FA0E47006E8BBF /* button-flash-auto.png in Resources */,

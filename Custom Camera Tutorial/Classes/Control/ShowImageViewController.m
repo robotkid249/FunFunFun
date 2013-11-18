@@ -56,28 +56,6 @@
     }
 }
 
--(UIImage*) rotate:(UIImage*) src andOrientation:(UIImageOrientation)orientation
-{
-    UIGraphicsBeginImageContext(src.size);
-    
-    CGContextRef context=(UIGraphicsGetCurrentContext());
-    
-    if (orientation == UIImageOrientationRight) {
-        CGContextRotateCTM (context, 90/180*M_PI) ;
-    } else if (orientation == UIImageOrientationLeft) {
-        CGContextRotateCTM (context, -90/180*M_PI);
-    } else if (orientation == UIImageOrientationDown) {
-        // NOTHING
-    } else if (orientation == UIImageOrientationUp) {
-        CGContextRotateCTM (context, 90/180*M_PI);
-    }
-    
-    [src drawAtPoint:CGPointMake(0, 0)];
-    UIImage *img29 =UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return img29;
-    
-}
 
 
 - (void)viewDidLoad
@@ -86,7 +64,7 @@
     
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    verb= [defaults objectForKey:@"verb"];
+    verb = [defaults objectForKey:@"verb"];
     NSLog(@"%@", verb);
     
     
@@ -347,7 +325,6 @@
         // Now let's update it with some new data. In this case, only cheatMode and score
         // will get sent to the cloud. playerName hasn't changed.
         value[@"Caption"] = textView.text;
-        value[@"verb"] = verb;
         
         
         if ([selectedMarks containsObject:@"Heartwood"]) {
@@ -558,7 +535,114 @@
     
 }
 
-
+- (UIImage *)scaleAndRotateImage:(UIImage *)image
+{
+	int kMaxResolution = 640; // Or whatever
+	
+	CGImageRef imgRef = image.CGImage;
+	
+	CGFloat width = CGImageGetWidth(imgRef);
+	CGFloat height = CGImageGetHeight(imgRef);
+	
+	CGAffineTransform transform = CGAffineTransformIdentity;
+	CGRect bounds = CGRectMake(0, 0, width, height);
+	if (width > kMaxResolution || height > kMaxResolution) {
+		CGFloat ratio = width/height;
+		if (ratio > 1) {
+			bounds.size.width = kMaxResolution;
+			bounds.size.height = bounds.size.width / ratio;
+		}
+		else {
+			bounds.size.height = kMaxResolution;
+			bounds.size.width = bounds.size.height * ratio;
+		}
+	}
+	
+	CGFloat scaleRatio = bounds.size.width / width;
+	CGSize imageSize = CGSizeMake(CGImageGetWidth(imgRef), CGImageGetHeight(imgRef));
+	CGFloat boundHeight;
+	UIImageOrientation orient = image.imageOrientation;
+	switch(orient) {
+			
+		case UIImageOrientationUp: //EXIF = 1
+			transform = CGAffineTransformIdentity;
+			break;
+			
+		case UIImageOrientationUpMirrored: //EXIF = 2
+			transform = CGAffineTransformMakeTranslation(imageSize.width, 0.0);
+			transform = CGAffineTransformScale(transform, -1.0, 1.0);
+			break;
+			
+		case UIImageOrientationDown: //EXIF = 3
+			transform = CGAffineTransformMakeTranslation(imageSize.width, imageSize.height);
+			transform = CGAffineTransformRotate(transform, M_PI);
+			break;
+			
+		case UIImageOrientationDownMirrored: //EXIF = 4
+			transform = CGAffineTransformMakeTranslation(0.0, imageSize.height);
+			transform = CGAffineTransformScale(transform, 1.0, -1.0);
+			break;
+			
+		case UIImageOrientationLeftMirrored: //EXIF = 5
+			boundHeight = bounds.size.height;
+			bounds.size.height = bounds.size.width;
+			bounds.size.width = boundHeight;
+			transform = CGAffineTransformMakeTranslation(imageSize.height, imageSize.width);
+			transform = CGAffineTransformScale(transform, -1.0, 1.0);
+			transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
+			break;
+			
+		case UIImageOrientationLeft: //EXIF = 6
+			boundHeight = bounds.size.height;
+			bounds.size.height = bounds.size.width;
+			bounds.size.width = boundHeight;
+			transform = CGAffineTransformMakeTranslation(0.0, imageSize.width);
+			transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
+			break;
+			
+		case UIImageOrientationRightMirrored: //EXIF = 7
+			boundHeight = bounds.size.height;
+			bounds.size.height = bounds.size.width;
+			bounds.size.width = boundHeight;
+			transform = CGAffineTransformMakeScale(-1.0, 1.0);
+			transform = CGAffineTransformRotate(transform, M_PI / 2.0);
+			break;
+			
+		case UIImageOrientationRight: //EXIF = 8
+			boundHeight = bounds.size.height;
+			bounds.size.height = bounds.size.width;
+			bounds.size.width = boundHeight;
+			transform = CGAffineTransformMakeTranslation(imageSize.height, 0.0);
+			transform = CGAffineTransformRotate(transform, M_PI / 2.0);
+			break;
+			
+		default:
+			[NSException raise:NSInternalInconsistencyException format:@"Invalid image orientation"];
+			
+	}
+	
+	UIGraphicsBeginImageContext(bounds.size);
+	
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	
+	if (orient == UIImageOrientationRight || orient == UIImageOrientationLeft) {
+		CGContextScaleCTM(context, -scaleRatio, scaleRatio);
+		CGContextTranslateCTM(context, -height, 0);
+	}
+	else {
+		CGContextScaleCTM(context, scaleRatio, -scaleRatio);
+		CGContextTranslateCTM(context, 0, -height);
+	}
+	
+	CGContextConcatCTM(context, transform);
+	
+	CGContextDrawImage(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, width, height), imgRef);
+	UIImage *imageCopy = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	
+	return imageCopy;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -579,8 +663,16 @@
     // UIImage *imgThing2 = [UIImage imageWithCGImage:img102.CGImage scale:0.5 orientation:UIImageOrientationRight];
     
     
-   UIImage *fun = [self rotate:img10 andOrientation:UIImageOrientationUp];
-    UIImage *fun2 = [self rotate:img102 andOrientation:UIImageOrientationUp];
+    UIImage *fixed = [UIImage imageWithCGImage:img10.CGImage
+                                         scale:1.0
+                                   orientation:UIImageOrientationRight];
+    
+    UIImage *fixed2 = [UIImage imageWithCGImage:img102.CGImage
+                                         scale:1.0
+                                   orientation:UIImageOrientationRight];
+    
+   UIImage *fun = [self scaleAndRotateImage:fixed];
+    UIImage *fun2 = [self scaleAndRotateImage:fixed2];
 
     
     CGFloat compression = 0.9f;
@@ -615,7 +707,8 @@
             // [userPhotos setObject:user forKey:@"user"];
             [userPhotos setObject:imageFile forKey:@"firstImage"];
             [userPhotos setObject:imageFile2 forKey:@"secondImage"];
-            
+            userPhotos[@"verb"] = verb;
+
             // Set the access control list to current user for security purposes
             
             
@@ -635,7 +728,7 @@
                             
                             
                             
-                            link = [NSString stringWithFormat:@"%@%@",@"http://getheartwood.co.nf/Viewer.php?pic=",objectId];
+                            link = [NSString stringWithFormat:@"%@%@",@"http://getheartwood.co.nf/?",objectId];
                             
                             
                             NSLog(@"Successfully retrieved the object. %@", objectId);
