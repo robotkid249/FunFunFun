@@ -11,10 +11,14 @@
 #import "RSCircaPageControl.h"
 #import "SBlur.h"
 
+#import <LiveFrost/LiveFrost.h>
+
 
 @interface RSView : UIView
 
 @property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, readonly, strong) LFGlassView *glassView;
+
 
 @end
 
@@ -141,7 +145,6 @@ static const int kScrollViewTagBase       = 500;
     [super viewDidLoad];
     
     touchHappened = 0;
-    
     
     
     
@@ -280,6 +283,32 @@ static const int kScrollViewTagBase       = 500;
     self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, currentY);
     
     [self.view addSubview:letterLabel];
+    
+    glassView = [[LFGlassView alloc] initWithFrame:(CGRect){ -130, 20, 200, 47 }];
+    glassView.backgroundColor = [UIColor whiteColor];
+    glassView.layer.cornerRadius = 23.f;
+    glassView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
+    [self.view addSubview:glassView];
+    
+    UIView *left = [[UIView alloc] initWithFrame:CGRectMake(-130, 20, 200, 47)];
+    left.backgroundColor = [UIColor whiteColor];
+    left.layer.cornerRadius = 23.f;
+    left.alpha = 0.1;
+    [self.view addSubview:left];
+    
+    glassViewR = [[LFGlassView alloc] initWithFrame:(CGRect){ 250, 20, 200, 47 }];
+    glassViewR.backgroundColor = [UIColor whiteColor];
+    glassViewR.layer.cornerRadius = 23.f;
+    glassViewR.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
+    [self.view addSubview:glassViewR];
+    
+    UIView *Right = [[UIView alloc] initWithFrame:CGRectMake(250, 20, 200, 47)];
+    Right.backgroundColor = [UIColor whiteColor];
+    Right.layer.cornerRadius = 23.f;
+    Right.alpha = 0.1;
+    [self.view addSubview:Right];
+    
+    
 
     
 }

@@ -40,10 +40,10 @@
 
 - (void) setup {
 	self.clipsToBounds = YES;
-	self.layer.cornerRadius = 20.0f;
+	self.layer.cornerRadius = 0.0f;
 	self.blurRadius = 4.0f;
 	self.scaleFactor = 0.25f;
-	self.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.25f];
+	self.backgroundColor = [UIColor colorWithWhite:1.0f alpha:1.0f];
 	self.opaque = NO;
 	self.userInteractionEnabled = NO;
 	self.layer.actions = @{

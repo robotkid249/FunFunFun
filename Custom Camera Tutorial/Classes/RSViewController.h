@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import <LiveFrost/LiveFrost.h>
 
 @interface RSViewController : UIViewController <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate> {
     
@@ -39,6 +40,9 @@
     UILabel *Label;
     UIView *indicator;
     int touchHappened;
+    LFGlassView *glassView;
+    LFGlassView *glassViewR;
+
 }
 
 
