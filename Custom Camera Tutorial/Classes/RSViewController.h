@@ -40,6 +40,7 @@
     int valueSwitch;
     UILabel *letterLabel;
     NSString *verb;
+    NSMutableArray *userArray;
     UIColor *greenColor;
     UILabel *Label;
     UIView *indicator;
@@ -48,6 +49,7 @@
     LFGlassView *glassViewR;
     LFGlassView *glassViewLD;
     LFGlassView *glassViewRD;
+    LFGlassView *heartGlass;
 
 }
 

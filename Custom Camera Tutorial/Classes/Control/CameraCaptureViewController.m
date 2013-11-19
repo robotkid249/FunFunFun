@@ -1491,6 +1491,8 @@ static int const kImagePreviewOriginY4inch = 62;
     
     showImageViewController = [[ShowImageViewController alloc] init];
     [self.navigationController pushViewController:showImageViewController animated:YES];
+    
+    
 
 }
 

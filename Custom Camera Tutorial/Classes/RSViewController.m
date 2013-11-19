@@ -237,6 +237,8 @@ static const int kScrollViewTagBase       = 500;
     imageDataArraySecond = [NSMutableArray array];
     imageDataArrayBlurred = [NSMutableArray array];
     verbArray = [NSMutableArray array];
+    userArray = [NSMutableArray array];
+
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeText;
@@ -267,6 +269,28 @@ static const int kScrollViewTagBase       = 500;
                }
              [verbArray addObject:verb];
                 
+                
+                NSString *user = object[@"user"];
+                [userArray addObject:user];
+                
+                PFQuery *query = [PFQuery queryWithClassName:@"User"];
+                [query whereKey:@"username" equalTo:user];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (!error) {
+                        // The find succeeded.
+                        NSLog(@"Successfully retrieved %d scores.", objects.count);
+                        // Do something with the found objects
+                        for (PFObject *object in objects) {
+                            NSString *username = object[@"username"];
+                            NSLog(@"This is the username %@", username);
+                        }
+                    } else {
+                        // Log details of the failure
+                        NSLog(@"Error: %@ %@", error, [error userInfo]);
+                    }
+                }];
+
+                
           
               PFFile *theImage = [object objectForKey:@"firstImage"];
                 NSData *imageData = [theImage getData];
@@ -283,7 +307,7 @@ static const int kScrollViewTagBase       = 500;
                 blurredImage = [SBlur blur:[UIImage imageWithData:blurredImageData] blurRadius:20.f];
                [imageDataArrayBlurred addObject:blurredImage];
                 
-                NSLog(@"Photos %@", imageDataArray);
+                NSLog(@"Photos %@", userArray);
                 
                 
                 [self succeeded];
@@ -346,6 +370,8 @@ static const int kScrollViewTagBase       = 500;
     Right.layer.cornerRadius = 23.f;
     Right.alpha = 0.005;
     [self.view addSubview:Right];
+        
+        
 
     }
     [self.view addSubview:snapButton];
@@ -481,13 +507,13 @@ static const int kScrollViewTagBase       = 500;
                      Label.attributedText = attributedText;
                      Label.shadowColor = [UIColor blackColor];
                      Label.shadowOffset = CGSizeMake(1.0, 1.0);
-                     Label.font = [UIFont fontWithName:@"Helvetica" size:25];
+                     Label.font = [UIFont fontWithName:@"Helvetica" size:23];
                      [sv addSubview:Label];
                      
 
                      heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                     heartButton.backgroundColor = [UIColor grayColor];
-                     heartButton.frame = CGRectMake(265, (self.view.bounds.size.height)-50, 80, 20);
+                     [heartButton setImage:[UIImage imageNamed:@"like.png"] forState:UIControlStateNormal];
+                     heartButton.frame = CGRectMake(250, (self.view.bounds.size.height)-55, 65, 35);
                      heartButton.contentMode = UIViewContentModeScaleAspectFit;
                      [heartButton addTarget:self
                                      action:@selector(heart:)
@@ -496,10 +522,13 @@ static const int kScrollViewTagBase       = 500;
                      [sv addSubview:heartButton];
                      [sv bringSubviewToFront:heartButton];
                      
+                  
+                     
+
+                     
                      menButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                     UIImage *sButton4 = [UIImage imageNamed:@"menu.png"];
-                     menButton.frame = CGRectMake(15, (self.view.bounds.size.height)-50, 35, 35);
-                     [menButton setImage:sButton4 forState:UIControlStateNormal];
+                     menButton.frame = CGRectMake(5, (self.view.bounds.size.height)-55, 65, 35);
+                     [menButton setImage:[UIImage imageNamed:@"more.png"] forState:UIControlStateNormal];
                      menButton.contentMode = UIViewContentModeScaleAspectFit;
                      [menButton addTarget:self
                                    action:@selector(men:)
