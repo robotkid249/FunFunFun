@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DRNRealTimeBlurView.h"
 #import <Social/Social.h>
+#import <LiveFrost/LiveFrost.h>
 @interface ShowImageViewController : UIViewController {
     
     UIImageView *img;
@@ -19,7 +20,7 @@
     int i;
     int Number;
     NSTimer *timer;
-    DRNRealTimeBlurView *blurView;
+    LFGlassView *blurView;
     UILabel *label;
     UIImage *imageFun;
     UITableView  *tableView;

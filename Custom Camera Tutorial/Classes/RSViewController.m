@@ -10,9 +10,10 @@
 #import <Parse/Parse.h>
 #import "RSCircaPageControl.h"
 #import "SBlur.h"
-
+#import <QuartzCore/QuartzCore.h>
 #import <LiveFrost/LiveFrost.h>
-
+#import "MBProgressHUD.h"
+#import "CameraCaptureViewController.h"
 
 @interface RSView : UIView
 
@@ -147,6 +148,35 @@ static const int kScrollViewTagBase       = 500;
     touchHappened = 0;
     
     
+    glassViewR = nil;
+    glassView = nil;
+    [glassView removeFromSuperview];
+    [glassViewR removeFromSuperview];
+    
+    snapButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *sButton = [UIImage imageNamed:@"takePhoto.png"];
+    snapButton.frame = CGRectMake(273, 25, 35, 35);
+    [snapButton setImage:sButton forState:UIControlStateNormal];
+    snapButton.contentMode = UIViewContentModeScaleAspectFit;
+    [snapButton addTarget:self
+                   action:@selector(snapImage:)
+         forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:snapButton];
+    
+    menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *sButton2 = [UIImage imageNamed:@"men.png"];
+    menuButton.frame = CGRectMake(15, 25, 40, 35);
+    [menuButton setImage:sButton2 forState:UIControlStateNormal];
+    menuButton.contentMode = UIViewContentModeScaleAspectFit;
+    [menuButton addTarget:self
+                   action:@selector(menu:)
+         forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:menuButton];
+    
+    
+
+
+    
     
     letterLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, -5, 200, 100)];
     [letterLabel setText:@"Heartwood"];
@@ -208,12 +238,18 @@ static const int kScrollViewTagBase       = 500;
     imageDataArrayBlurred = [NSMutableArray array];
     verbArray = [NSMutableArray array];
     
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = @"Loading...";
+    [hud show:YES];
+    
     
     PFQuery *query = [PFQuery queryWithClassName:@"UserPhotos"];
     query.limit = 10;
     //[query whereKey:@"Hidden" equalTo:@];
     [query orderByDescending:@"updatedAt"];
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
@@ -251,6 +287,7 @@ static const int kScrollViewTagBase       = 500;
                 
                 
                 [self succeeded];
+                [hud hide:YES];
                 
             }
         } else {
@@ -275,7 +312,7 @@ static const int kScrollViewTagBase       = 500;
         currentY += self.view.bounds.size.height;
         
         
-        
+     
         
     }
     
@@ -284,6 +321,7 @@ static const int kScrollViewTagBase       = 500;
     
     [self.view addSubview:letterLabel];
     
+    if (glassView == NULL || glassViewR == NULL) {
     glassView = [[LFGlassView alloc] initWithFrame:(CGRect){ -130, 20, 200, 47 }];
     glassView.backgroundColor = [UIColor whiteColor];
     glassView.layer.cornerRadius = 23.f;
@@ -293,8 +331,9 @@ static const int kScrollViewTagBase       = 500;
     UIView *left = [[UIView alloc] initWithFrame:CGRectMake(-130, 20, 200, 47)];
     left.backgroundColor = [UIColor whiteColor];
     left.layer.cornerRadius = 23.f;
-    left.alpha = 0.1;
+    left.alpha = 0.005;
     [self.view addSubview:left];
+        
     
     glassViewR = [[LFGlassView alloc] initWithFrame:(CGRect){ 250, 20, 200, 47 }];
     glassViewR.backgroundColor = [UIColor whiteColor];
@@ -305,15 +344,27 @@ static const int kScrollViewTagBase       = 500;
     UIView *Right = [[UIView alloc] initWithFrame:CGRectMake(250, 20, 200, 47)];
     Right.backgroundColor = [UIColor whiteColor];
     Right.layer.cornerRadius = 23.f;
-    Right.alpha = 0.1;
+    Right.alpha = 0.005;
     [self.view addSubview:Right];
-    
-    
 
+    }
+    [self.view addSubview:snapButton];
+    [self.view addSubview:menuButton];
     
+    
+  
+
+
 }
 
-
+-(void)setRoundedView:(UIView *)roundedView toDiameter:(float)newSize;
+{
+    CGPoint saveCenter = roundedView.center;
+    CGRect newFrame = CGRectMake(roundedView.frame.origin.x, roundedView.frame.origin.y, newSize, newSize);
+    roundedView.frame = newFrame;
+    roundedView.layer.cornerRadius = newSize / 2.0;
+    roundedView.center = saveCenter;
+}
 
 
 - (void)succeeded {
@@ -331,6 +382,8 @@ static const int kScrollViewTagBase       = 500;
             for (int val = 0; val < 10; val++) {
                 
                  if (sv.tag == val) {
+                     
+                    
                 
                 blurredImage = [imageDataArrayBlurred objectAtIndex:val];
                 UIImage *imageToDisplay =
@@ -432,82 +485,30 @@ static const int kScrollViewTagBase       = 500;
                      [sv addSubview:Label];
                      
 
+                     heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                     heartButton.backgroundColor = [UIColor grayColor];
+                     heartButton.frame = CGRectMake(265, (self.view.bounds.size.height)-50, 80, 20);
+                     heartButton.contentMode = UIViewContentModeScaleAspectFit;
+                     [heartButton addTarget:self
+                                     action:@selector(heart:)
+                           forControlEvents:UIControlEventTouchUpInside];
+                     heartButton.tag = val;
+                     [sv addSubview:heartButton];
+                     [sv bringSubviewToFront:heartButton];
                      
-                /*     Label = [[UILabel alloc] initWithFrame:CGRectMake(60, (self.view.bounds.size.height)-87, 200, (100))];
-                     Label.backgroundColor = [UIColor clearColor];
-                     Label.textAlignment = NSTextAlignmentCenter;
+                     menButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                     UIImage *sButton4 = [UIImage imageNamed:@"menu.png"];
+                     menButton.frame = CGRectMake(15, (self.view.bounds.size.height)-50, 35, 35);
+                     [menButton setImage:sButton4 forState:UIControlStateNormal];
+                     menButton.contentMode = UIViewContentModeScaleAspectFit;
+                     [menButton addTarget:self
+                                   action:@selector(men:)
+                         forControlEvents:UIControlEventTouchUpInside];
+                     menButton.tag = val;
+                     [sv addSubview:menButton];
                      
-                     NSString *redText = @"I am";
-                     
-                     
-                     
-                     greenText = [verbArray objectAtIndex:val];
-                     
-                     if (greenText == NULL) {
-                         
-                         
-                         secondText = @"";
-                         
-                     } else {
-                         secondText = [verbArray objectAtIndex:val];
-                     }
-                     
-                     
-                     NSString *text = [NSString stringWithFormat:@"%@ %@",
-                                       redText,
-                                       secondText];
-                     
-                     
-                     // Define general attributes for the entire text
-                     NSDictionary *attribs = @{
-                                               NSForegroundColorAttributeName: Label.textColor,
-                                               NSFontAttributeName: Label.font
-                                               };
-                     NSMutableAttributedString *attributedText =
-                     [[NSMutableAttributedString alloc] initWithString:text
-                                                            attributes:attribs];
-                     
-                     // Red text attributes
-                     UIColor *redColor = [UIColor whiteColor];
-                     NSRange redTextRange = [text rangeOfString:redText];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
-                     [attributedText setAttributes:@{NSForegroundColorAttributeName:redColor}
-                                             range:redTextRange];
-                     
-                     // Green text attributes
-                     
-                     if ([secondText isEqual: @"at +"]) {
-                         greenColor = [UIColor colorWithRed:0 green:1 blue:0.498 alpha:1];
-                     }
-                     if ([secondText isEqual: @"with +"]) {
-                         greenColor = [UIColor colorWithRed:0.043 green:0.71 blue:1 alpha:1];
-                     }
-                     if ([secondText isEqual: @"feeling +"]) {
-                         greenColor = [UIColor colorWithRed:0.898 green:0.247 blue:0.325 alpha:1];
-                         
-                     }
-                     if ([secondText isEqual: @"watching +"]) {
-                         greenColor = [UIColor colorWithRed:1 green:0.49 blue:0.251 alpha:1];
-                         
-                     }
-                     if ([secondText isEqual: @"eating +"]) {
-                         greenColor = [UIColor colorWithRed:0.729 green:0.333 blue:0.827 alpha:1];
-                         
-                     }
-                     if ([secondText isEqual: @"reading +"]) {
-                         greenColor = [UIColor colorWithRed:0.318 green:0.498 blue:0.643 alpha:1];
-                         
-                     }
-                     
-                     
-                     
-                     NSRange greenTextRange = [text rangeOfString:greenText];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
-                     [attributedText setAttributes:@{NSForegroundColorAttributeName:greenColor}
-                                             range:greenTextRange];
-                     Label.attributedText = attributedText;
-                     Label.shadowColor = [UIColor blackColor];
-                     Label.shadowOffset = CGSizeMake(1.0, 1.0);
-                     Label.font = [UIFont fontWithName:@"Helvetica" size:25];
-                     [sv addSubview:Label];*/
+                     [sv bringSubviewToFront:heartButton];
+                     [sv bringSubviewToFront:menButton];
                      
                      [self.view addSubview:letterLabel];
 
@@ -655,7 +656,7 @@ static const int kScrollViewTagBase       = 500;
 - (void)buttonTouched:(id)sender {
     
     
-    
+   
     
     NSLog(@"touched");
     
@@ -697,13 +698,18 @@ static const int kScrollViewTagBase       = 500;
         second.alpha = 0.0;
         [self.view addSubview:second];
         
-        indicator = [[UIView alloc] initWithFrame:CGRectMake(300, 0, 20, self.view.bounds.size.height)];
+      /*  indicator = [[UIView alloc] initWithFrame:CGRectMake(300, 0, 20, self.view.bounds.size.height)];
         indicator.backgroundColor = [UIColor blackColor];
         indicator.alpha = 0.5;
-        [self.view addSubview:indicator];
+        [self.view addSubview:indicator];*/
         
         
-        [self.view addSubview:letterLabel];
+        [self.view bringSubviewToFront:letterLabel];
+        [self.view bringSubviewToFront:glassViewR];
+        [self.view bringSubviewToFront:glassView];
+        [self.view bringSubviewToFront:menuButton];
+        [self.view bringSubviewToFront:snapButton];
+
         
     }
     
@@ -736,6 +742,28 @@ static const int kScrollViewTagBase       = 500;
     indicator = nil;
     
 }
+
+- (void)snapImage:(id)sender {
+    
+    UIViewController *vc = [[CameraCaptureViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)menu:(id)sender {
+    
+    
+}
+
+- (void)heart:(id)sender {
+    
+    
+}
+
+- (void)men:(id)sender {
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {

@@ -10,6 +10,9 @@
 		6F0470A518396573007D16E0 /* LFDisplayBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0470A118396573007D16E0 /* LFDisplayBridge.m */; };
 		6F0470A618396573007D16E0 /* LFGlassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0470A318396573007D16E0 /* LFGlassView.m */; };
 		6F0470AC1839A71C007D16E0 /* RemachineScript_Personal_Use.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F0470AB1839A71C007D16E0 /* RemachineScript_Personal_Use.ttf */; };
+		6F0470B2183A8FC9007D16E0 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0470B1183A8FC9007D16E0 /* menu.png */; };
+		6F0470B4183A9124007D16E0 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0470B3183A9124007D16E0 /* heart.png */; };
+		6F0470B6183A92AD007D16E0 /* men.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0470B5183A92AD007D16E0 /* men.png */; };
 		6FC0CF95183915AD00225946 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC0CF94183915AD00225946 /* Parse.framework */; };
 		CC0745351829C4B300574631 /* feeling.png in Resources */ = {isa = PBXBuildFile; fileRef = CC0745201829C4B300574631 /* feeling.png */; };
 		CC0745361829C4B300574631 /* at.png in Resources */ = {isa = PBXBuildFile; fileRef = CC0745211829C4B300574631 /* at.png */; };
@@ -186,6 +189,9 @@
 		6F0470A318396573007D16E0 /* LFGlassView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFGlassView.m; path = LiveFrost/LiveFrost/LFGlassView.m; sourceTree = SOURCE_ROOT; };
 		6F0470A418396573007D16E0 /* LiveFrost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiveFrost.h; path = LiveFrost/LiveFrost/LiveFrost.h; sourceTree = SOURCE_ROOT; };
 		6F0470AB1839A71C007D16E0 /* RemachineScript_Personal_Use.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RemachineScript_Personal_Use.ttf; sourceTree = "<group>"; };
+		6F0470B1183A8FC9007D16E0 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
+		6F0470B3183A9124007D16E0 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
+		6F0470B5183A92AD007D16E0 /* men.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = men.png; sourceTree = "<group>"; };
 		6FC0CF94183915AD00225946 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		CC0745201829C4B300574631 /* feeling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = feeling.png; sourceTree = "<group>"; };
 		CC0745211829C4B300574631 /* at.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = at.png; sourceTree = "<group>"; };
@@ -481,9 +487,19 @@
 			path = "../../LiveFrost-develop-5/LiveFrost";
 			sourceTree = "<group>";
 		};
+		6F0470B0183A8938007D16E0 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = HUD;
+			sourceTree = "<group>";
+		};
 		CC07451F1829C46900574631 /* Ext. Images */ = {
 			isa = PBXGroup;
 			children = (
+				6F0470B5183A92AD007D16E0 /* men.png */,
+				6F0470B3183A9124007D16E0 /* heart.png */,
+				6F0470B1183A8FC9007D16E0 /* menu.png */,
 				CC991C7F18305D7600BDDCDB /* done.png */,
 				CC991C7D18302B1600BDDCDB /* circle.png */,
 				CC991B63182C94FE00BDDCDB /* check.png */,
@@ -1031,6 +1047,7 @@
 			isa = PBXGroup;
 			children = (
 				6F0470AB1839A71C007D16E0 /* RemachineScript_Personal_Use.ttf */,
+				6F0470B0183A8938007D16E0 /* HUD */,
 				CCFAF76B183474D700A3D410 /* Circa framework */,
 				CCFAF767183474C300A3D410 /* Blur framework */,
 				CC07451F1829C46900574631 /* Ext. Images */,
@@ -1225,6 +1242,7 @@
 				F8D393D617F9143700344D63 /* InfoPlist.strings in Resources */,
 				CC07453E1829C4B300574631 /* girl-flowers@2x.jpg in Resources */,
 				CC07455B1829CC7C00574631 /* icon258.png in Resources */,
+				6F0470B2183A8FC9007D16E0 /* menu.png in Resources */,
 				CC0745481829C4B300574631 /* 04.jpg in Resources */,
 				F8D393E517F9143700344D63 /* MainStoryboard.storyboard in Resources */,
 				CCA0083A18318DC700FE3C2A /* FBConnect.bundle in Resources */,
@@ -1286,7 +1304,9 @@
 				F8C9F7C217FAF616000A3F06 /* navbar-btn-back.png in Resources */,
 				CC991B62182C8B3B00BDDCDB /* Default2.png in Resources */,
 				CC07453C1829C4B300574631 /* bgR@2x.png in Resources */,
+				6F0470B6183A92AD007D16E0 /* men.png in Resources */,
 				CC0745441829C4B300574631 /* menuu@2x.png in Resources */,
+				6F0470B4183A9124007D16E0 /* heart.png in Resources */,
 				F8C9F7C317FAF616000A3F06 /* navbar-btn-back@2x.png in Resources */,
 				CC991B60182C8AF300BDDCDB /* Default23.png in Resources */,
 				CC0745461829C4B300574631 /* 02.jpg in Resources */,

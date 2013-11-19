@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "ShowImageViewController.h"
 //#import "DIYCam.h"
 //#import "DIYAV.h"
 
@@ -42,6 +43,7 @@
     AVCaptureVideoPreviewLayer *imagePreview;
     AVCaptureSession *session;
    AVCaptureDeviceInput *input;
+    ShowImageViewController *showImageViewController;
 
 
 }

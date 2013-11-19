@@ -32,6 +32,10 @@
     UIImage *thing;
     UIImage *thing2;
     UIImage *blurredImage;
+    UIButton *snapButton;
+    UIButton *menuButton;
+    UIButton *menButton;
+    UIButton *heartButton;
     int tag;
     int valueSwitch;
     UILabel *letterLabel;
@@ -42,6 +46,8 @@
     int touchHappened;
     LFGlassView *glassView;
     LFGlassView *glassViewR;
+    LFGlassView *glassViewLD;
+    LFGlassView *glassViewRD;
 
 }
 

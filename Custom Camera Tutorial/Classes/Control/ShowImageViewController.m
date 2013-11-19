@@ -14,6 +14,9 @@
 #import "CRTableViewCell.h"
 #import "CameraCaptureViewController.h"
 #import "TWBSocialHelper.h"
+#import "LiveFrost/LiveFrost.h"
+#import "RSViewController.h"
+#import "MBProgressHUD.h"
 
 @interface ShowImageViewController ()
 
@@ -153,7 +156,6 @@
 - (void)back:(id)sender {
     
     
-    UIViewController *viewc = [[CameraCaptureViewController alloc] init];
     [self.navigationController popViewControllerAnimated:YES];
     
     
@@ -162,6 +164,12 @@
 - (void)check:(id)sender {
     
     [timer invalidate];
+    
+    blurView = [[LFGlassView alloc] initWithFrame:(CGRect){ -100, -100, self.view.bounds.size.width*2, self.view.bounds.size.height*2 }];
+    blurView.backgroundColor = [UIColor whiteColor];
+    blurView.layer.cornerRadius = 0.f;
+    blurView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
+    [self.view addSubview:blurView];
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
@@ -183,7 +191,7 @@
     
     
     
-    img.contentMode = UIViewContentModeScaleAspectFill;
+    img.contentMode = UIViewContentModeCenter;
     
     [checkButton removeFromSuperview];
     
@@ -204,9 +212,7 @@
     
     
     
-    blurView = [[DRNRealTimeBlurView alloc] initWithFrame:CGRectMake(-320, -self.view.bounds.size.height, 640, 1136*2)];
-    blurView.renderStatic = NO;
-    [self.view addSubview:blurView];
+   
     
     sv = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     sv.scrollEnabled = YES;
@@ -298,7 +304,6 @@
 
 - (void)animationDone {
     
-    blurView.renderStatic = YES;
     [sv addSubview:img];
     [img addSubview:blurView];
     [sv sendSubviewToBack:blurView];
@@ -499,7 +504,8 @@
     }
     
     
-    
+    UIViewController *vc = [[RSViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:NO];
     
 }
 -(void)textViewDidBeginEditing:(UITextView *)textView { //Keyboard becomes visible
@@ -561,7 +567,7 @@
 	CGFloat scaleRatio = bounds.size.width / width;
 	CGSize imageSize = CGSizeMake(CGImageGetWidth(imgRef), CGImageGetHeight(imgRef));
 	CGFloat boundHeight;
-	UIImageOrientation orient = image.imageOrientation;
+	UIImageOrientation orient = UIImageOrientationUp;
 	switch(orient) {
 			
 		case UIImageOrientationUp: //EXIF = 1
@@ -648,17 +654,20 @@
 {
     [super viewWillAppear:animated];
     
-    img.image = self.picture;
-    img2.image = self.picture2;
+    NSString  *imagePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/first.png"];
+    img.image = [UIImage imageWithContentsOfFile:imagePath];
+    NSString  *imagePath2 = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/second.png"];
+    img2.image = [UIImage imageWithContentsOfFile:imagePath2];
+
     
     NSLog(@"i tried");
     
-    NSData *imageData = UIImagePNGRepresentation(self.picture);
+    NSData *imageData = UIImagePNGRepresentation(img.image);
     UIImage *img10 = [UIImage imageWithData:imageData];
     
     
     
-    NSData *imageData2 = UIImagePNGRepresentation(self.picture2);
+    NSData *imageData2 = UIImagePNGRepresentation(img2.image);
     UIImage *img102 = [UIImage imageWithData:imageData2];
     // UIImage *imgThing2 = [UIImage imageWithCGImage:img102.CGImage scale:0.5 orientation:UIImageOrientationRight];
     
@@ -692,6 +701,10 @@
     
     
     
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = @"Updating...";
+    [hud show:YES];
     
     
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -704,7 +717,7 @@
             // Set the access control list to current user for security purposes
             
             PFUser *user = [PFUser currentUser];
-            // [userPhotos setObject:user forKey:@"user"];
+            [userPhotos setObject:user forKey:@"user"];
             [userPhotos setObject:imageFile forKey:@"firstImage"];
             [userPhotos setObject:imageFile2 forKey:@"secondImage"];
             userPhotos[@"verb"] = verb;
@@ -726,7 +739,7 @@
                             // The find succeeded.
                             objectId = [object objectId];
                             
-                            
+                            [hud hide:YES];
                             
                             link = [NSString stringWithFormat:@"%@%@",@"http://getheartwood.co.nf/?",objectId];
                             
