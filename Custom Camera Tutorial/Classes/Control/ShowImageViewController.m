@@ -155,8 +155,12 @@
 
 - (void)back:(id)sender {
     
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:2 forKey:@"integerKey"];
+    [prefs synchronize];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [[self presentingViewController] dismissViewControllerAnimated:NO completion:nil];
+
     
     
 }
@@ -503,10 +507,19 @@
         UIImageWriteToSavedPhotosAlbum(img2.image, nil, nil, nil);
     }
     
+  
+  
+
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:0 forKey:@"integerKey"];
+    [prefs synchronize];
     
-    UIViewController *vc = [[RSViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:NO];
+    [[self presentingViewController] dismissViewControllerAnimated:NO completion:nil];
     
+  
+    
+
+
 }
 -(void)textViewDidBeginEditing:(UITextView *)textView { //Keyboard becomes visible
     
@@ -730,8 +743,11 @@
                     
                     NSLog(@"yea bro");
                     
+                    
                     PFQuery *query = [PFQuery queryWithClassName:@"UserPhotos"];
                     [query orderByDescending:@"createdAt"];
+                    PFUser *user = [PFUser currentUser];
+                    [query whereKey:@"user" equalTo:user];
                     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
                         if (!object) {
                             NSLog(@"The getFirstObject request failed.");

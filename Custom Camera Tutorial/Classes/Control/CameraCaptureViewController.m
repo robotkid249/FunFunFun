@@ -66,9 +66,11 @@ static int const kImagePreviewOriginY4inch = 62;
     
 }*/
 
+
 - (void)viewDidLoad
 {
     
+
     showImageViewController = [[ShowImageViewController alloc] init];
     [self performSelector:@selector(initializeCamera) withObject:nil afterDelay:0.001];
     //[self performSelector:@selector(doTheCam) withObject:self afterDelay:0.0000001];
@@ -328,6 +330,7 @@ static int const kImagePreviewOriginY4inch = 62;
     };
     
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -1489,9 +1492,15 @@ static int const kImagePreviewOriginY4inch = 62;
    // [self.navigationController pushViewController:self.showImageController animated:YES];
     
     
-    showImageViewController = [[ShowImageViewController alloc] init];
-    [self.navigationController pushViewController:showImageViewController animated:YES];
+    //showImageViewController = [[ShowImageViewController alloc] init];
+    //[self.navigationController pushViewController:showImageViewController animated:YES];
     
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:1 forKey:@"integerKey"];
+    [prefs synchronize];
+    
+    [[self presentingViewController] dismissViewControllerAnimated:NO completion:nil];
+
     
 
 }
@@ -1684,7 +1693,14 @@ static int const kImagePreviewOriginY4inch = 62;
 
 - (void)back:(id)sender {
     
-    [self.navigationController popViewControllerAnimated:YES];
+    NSLog(@"hello");
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:0 forKey:@"integerKey"];
+    [prefs synchronize];
+    
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 @end

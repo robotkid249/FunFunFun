@@ -6,10 +6,6 @@
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>Heartwood</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>RemachineScript_Personal_Use.ttf</string>
-	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIcons</key>
@@ -25,7 +21,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.kyle.Heartwood</string>
+	<string>F5JECQZ3B3.com.kyle.Heartwood</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -51,6 +47,11 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>RemachineScript_Personal_Use.ttf</string>
+		<string>ProximaNova-Regular.otf</string>
+	</array>
 	<key>UILaunchImages</key>
 	<array>
 		<dict>

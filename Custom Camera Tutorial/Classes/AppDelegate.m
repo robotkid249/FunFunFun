@@ -8,16 +8,20 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
-
+#import "Countly.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [[Countly sharedInstance] start:@"eb36e12055a2cbcc293818c90a671daea0319449" withHost:@"https://cloud.count.ly"];
+
     // Override point for customization after application launch.
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [Parse setApplicationId:@"euu2KKYfTsJpV7o6g9o6f43gRhbexdmGvoNnmRkD"
                   clientKey:@"ZrxZ9CNawd0hs4jT46dQBfaup8pHBOVT3MZdRjR5"];
+    
     
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 /*

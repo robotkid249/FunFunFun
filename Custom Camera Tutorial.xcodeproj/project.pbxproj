@@ -16,6 +16,14 @@
 		6F0470B9183AF784007D16E0 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0470B7183AF784007D16E0 /* more.png */; };
 		6F0470BA183AF784007D16E0 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0470B8183AF784007D16E0 /* like.png */; };
 		6FC0CF95183915AD00225946 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC0CF94183915AD00225946 /* Parse.framework */; };
+		6FEF28CA183BBD80009EE485 /* Countly_OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF28C3183BBD80009EE485 /* Countly_OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6FEF28CB183BBD80009EE485 /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF28C5183BBD80009EE485 /* Countly.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6FEF28CC183BBD80009EE485 /* Countly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF28C6183BBD80009EE485 /* Countly.xcdatamodeld */; };
+		6FEF28CD183BBD80009EE485 /* CountlyDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF28C9183BBD80009EE485 /* CountlyDB.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6FEF28D0183BBEF3009EE485 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FEF28CF183BBEF3009EE485 /* CoreTelephony.framework */; };
+		6FEF28D2183BBF03009EE485 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FEF28D1183BBF03009EE485 /* CoreData.framework */; };
+		6FEF28D5183C3D71009EE485 /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6FEF28D4183C3D71009EE485 /* ProximaNova-Light.otf */; };
+		6FEF28D7183C3D9F009EE485 /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6FEF28D6183C3D9F009EE485 /* ProximaNova-Regular.otf */; };
 		CC0745351829C4B300574631 /* feeling.png in Resources */ = {isa = PBXBuildFile; fileRef = CC0745201829C4B300574631 /* feeling.png */; };
 		CC0745361829C4B300574631 /* at.png in Resources */ = {isa = PBXBuildFile; fileRef = CC0745211829C4B300574631 /* at.png */; };
 		CC0745371829C4B300574631 /* with.png in Resources */ = {isa = PBXBuildFile; fileRef = CC0745221829C4B300574631 /* with.png */; };
@@ -197,6 +205,17 @@
 		6F0470B7183AF784007D16E0 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
 		6F0470B8183AF784007D16E0 /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
 		6FC0CF94183915AD00225946 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		6FEF28C2183BBD80009EE485 /* Countly_OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countly_OpenUDID.h; sourceTree = "<group>"; };
+		6FEF28C3183BBD80009EE485 /* Countly_OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countly_OpenUDID.m; sourceTree = "<group>"; };
+		6FEF28C4183BBD80009EE485 /* Countly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countly.h; sourceTree = "<group>"; };
+		6FEF28C5183BBD80009EE485 /* Countly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countly.m; sourceTree = "<group>"; };
+		6FEF28C7183BBD80009EE485 /* Countly.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Countly.xcdatamodel; sourceTree = "<group>"; };
+		6FEF28C8183BBD80009EE485 /* CountlyDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountlyDB.h; sourceTree = "<group>"; };
+		6FEF28C9183BBD80009EE485 /* CountlyDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountlyDB.m; sourceTree = "<group>"; };
+		6FEF28CF183BBEF3009EE485 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		6FEF28D1183BBF03009EE485 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		6FEF28D4183C3D71009EE485 /* ProximaNova-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.otf"; sourceTree = "<group>"; };
+		6FEF28D6183C3D9F009EE485 /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.otf"; sourceTree = "<group>"; };
 		CC0745201829C4B300574631 /* feeling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = feeling.png; sourceTree = "<group>"; };
 		CC0745211829C4B300574631 /* at.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = at.png; sourceTree = "<group>"; };
 		CC0745221829C4B300574631 /* with.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = with.png; sourceTree = "<group>"; };
@@ -451,6 +470,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FEF28D2183BBF03009EE485 /* CoreData.framework in Frameworks */,
+				6FEF28D0183BBEF3009EE485 /* CoreTelephony.framework in Frameworks */,
 				F880651B17FA0AC2006E8BBF /* QuartzCore.framework in Frameworks */,
 				CCFAF776183476DC00A3D410 /* CoreImage.framework in Frameworks */,
 				CCFAF774183476D500A3D410 /* ImageIO.framework in Frameworks */,
@@ -496,6 +517,20 @@
 			children = (
 			);
 			name = HUD;
+			sourceTree = "<group>";
+		};
+		6FEF28CE183BBD85009EE485 /* Countly */ = {
+			isa = PBXGroup;
+			children = (
+				6FEF28C2183BBD80009EE485 /* Countly_OpenUDID.h */,
+				6FEF28C3183BBD80009EE485 /* Countly_OpenUDID.m */,
+				6FEF28C4183BBD80009EE485 /* Countly.h */,
+				6FEF28C5183BBD80009EE485 /* Countly.m */,
+				6FEF28C6183BBD80009EE485 /* Countly.xcdatamodeld */,
+				6FEF28C8183BBD80009EE485 /* CountlyDB.h */,
+				6FEF28C9183BBD80009EE485 /* CountlyDB.m */,
+			);
+			name = Countly;
 			sourceTree = "<group>";
 		};
 		CC07451F1829C46900574631 /* Ext. Images */ = {
@@ -1016,6 +1051,8 @@
 		F8D393CA17F9143700344D63 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6FEF28D1183BBF03009EE485 /* CoreData.framework */,
+				6FEF28CF183BBEF3009EE485 /* CoreTelephony.framework */,
 				CCFAF775183476DC00A3D410 /* CoreImage.framework */,
 				CCFAF773183476D500A3D410 /* ImageIO.framework */,
 				CC3F510E1831A0D6007E5EF9 /* Accounts.framework */,
@@ -1053,6 +1090,9 @@
 			isa = PBXGroup;
 			children = (
 				6F0470AB1839A71C007D16E0 /* RemachineScript_Personal_Use.ttf */,
+				6FEF28D4183C3D71009EE485 /* ProximaNova-Light.otf */,
+				6FEF28D6183C3D9F009EE485 /* ProximaNova-Regular.otf */,
+				6FEF28CE183BBD85009EE485 /* Countly */,
 				6F0470B0183A8938007D16E0 /* HUD */,
 				CCFAF76B183474D700A3D410 /* Circa framework */,
 				CCFAF767183474C300A3D410 /* Blur framework */,
@@ -1220,6 +1260,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Bruno Tortato Furtado";
+				TargetAttributes = {
+					F8D393C717F9143700344D63 = {
+						DevelopmentTeam = F5JECQZ3B3;
+					};
+				};
 			};
 			buildConfigurationList = F8D393C317F9143700344D63 /* Build configuration list for PBXProject "Custom Camera Tutorial" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1245,6 +1290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC0745521829C51900574631 /* 3.png in Resources */,
+				6FEF28D7183C3D9F009EE485 /* ProximaNova-Regular.otf in Resources */,
 				F8D393D617F9143700344D63 /* InfoPlist.strings in Resources */,
 				CC07453E1829C4B300574631 /* girl-flowers@2x.jpg in Resources */,
 				CC07455B1829CC7C00574631 /* icon258.png in Resources */,
@@ -1322,6 +1368,7 @@
 				CC0745501829C51900574631 /* 1.png in Resources */,
 				F899F06717FB3BC5004BE3D4 /* switch_camera_button_white@2x.png in Resources */,
 				CC07453D1829C4B300574631 /* takePhoto.png in Resources */,
+				6FEF28D5183C3D71009EE485 /* ProximaNova-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1363,6 +1410,7 @@
 				CCA0085B18319E0E00FE3C2A /* UIViewController+JASidePanel.m in Sources */,
 				CCA0085A18319E0E00FE3C2A /* JASidePanelController.m in Sources */,
 				CC991C7B1830269E00BDDCDB /* CRTableViewCell.m in Sources */,
+				6FEF28CA183BBD80009EE485 /* Countly_OpenUDID.m in Sources */,
 				CCA0085318318DC700FE3C2A /* SHKOAuthView.m in Sources */,
 				F8D3940B17F9303700344D63 /* MBProgressHUD.m in Sources */,
 				CCA0081E18318DC700FE3C2A /* Base64Transcoder.c in Sources */,
@@ -1383,6 +1431,7 @@
 				CCA0082318318DC700FE3C2A /* OADataFetcher.m in Sources */,
 				CCA0085118318DC700FE3C2A /* SHKFormFieldCell.m in Sources */,
 				CCA0083518318DC700FE3C2A /* SHKCopy.m in Sources */,
+				6FEF28CB183BBD80009EE485 /* Countly.m in Sources */,
 				CCA0084D18318DC700FE3C2A /* SHKTwitterForm.m in Sources */,
 				CCA0081718318DC700FE3C2A /* SHKOAuthSharer.m in Sources */,
 				CC991C77182F1BE500BDDCDB /* UIImage+BoxBlur.m in Sources */,
@@ -1403,6 +1452,8 @@
 				CCFAF76A183474D200A3D410 /* RSCircaPageControl.m in Sources */,
 				CC991C76182F1BE500BDDCDB /* DRNRealTimeBlurView.m in Sources */,
 				CCA0083F18318DC700FE3C2A /* FBLoginDialog.m in Sources */,
+				6FEF28CC183BBD80009EE485 /* Countly.xcdatamodeld in Sources */,
+				6FEF28CD183BBD80009EE485 /* CountlyDB.m in Sources */,
 				CCA0082718318DC700FE3C2A /* OARequestParameter.m in Sources */,
 				CCA0082D18318DC700FE3C2A /* SHKOfflineSharer.m in Sources */,
 				CCA0085518318DC700FE3C2A /* SHKViewControllerWrapper.m in Sources */,
@@ -1455,7 +1506,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thomas Ryan (Q4XM4ESH45)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Thomas Ryan (Q4XM4ESH45)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1464,12 +1515,13 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
+				PROVISIONING_PROFILE = "22FAAFFE-7347-4305-96DC-ABB57D7E118F";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1487,23 +1539,27 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thomas Ryan (Q4XM4ESH45)";
-				COPY_PHASE_STRIP = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Thomas Ryan (Q4XM4ESH45)";
+				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "22FAAFFE-7347-4305-96DC-ABB57D7E118F";
 				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = NO;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		F8D393EC17F9143700344D63 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/thomasryan/Desktop/Heartwood\\ Beta\\ 2/Custom\\ Camera\\ Tutorial/Classes",
@@ -1517,8 +1573,9 @@
 					"\"$(SRCROOT)/LiveFrost\"",
 				);
 				INFOPLIST_FILE = "Custom Camera Tutorial/Supporting Files/Custom Camera Tutorial-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "22FAAFFE-7347-4305-96DC-ABB57D7E118F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1526,6 +1583,8 @@
 		F8D393ED17F9143700344D63 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/thomasryan/Desktop/Heartwood\\ Beta\\ 2/Custom\\ Camera\\ Tutorial/Classes",
@@ -1539,8 +1598,9 @@
 					"\"$(SRCROOT)/LiveFrost\"",
 				);
 				INFOPLIST_FILE = "Custom Camera Tutorial/Supporting Files/Custom Camera Tutorial-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "22FAAFFE-7347-4305-96DC-ABB57D7E118F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1567,6 +1627,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6FEF28C6183BBD80009EE485 /* Countly.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6FEF28C7183BBD80009EE485 /* Countly.xcdatamodel */,
+			);
+			currentVersion = 6FEF28C7183BBD80009EE485 /* Countly.xcdatamodel */;
+			path = Countly.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F8D393C017F9143700344D63 /* Project object */;
 }

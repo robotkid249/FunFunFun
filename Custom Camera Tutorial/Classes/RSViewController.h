@@ -37,12 +37,16 @@
     UIButton *menButton;
     UIButton *heartButton;
     int tag;
+    UILabel* label;
+    UIView *left;
+    UIView *right;
     int valueSwitch;
     UILabel *letterLabel;
     NSString *verb;
     NSMutableArray *userArray;
     UIColor *greenColor;
     UILabel *Label;
+    UILabel *Label2;
     UIView *indicator;
     int touchHappened;
     LFGlassView *glassView;

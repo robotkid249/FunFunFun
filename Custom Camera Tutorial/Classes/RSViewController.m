@@ -54,6 +54,27 @@ static const int kScrollViewTagBase       = 500;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *myString = [prefs stringForKey:@"integerKey"];
+    int value = [myString intValue];
+    NSLog(@"WHOAO%d", value);
+    
+    
+    if (value == 1) {
+        NSLog(@"push");
+        UIViewController *vc = [[ShowImageViewController alloc] init];
+        [self.navigationController presentViewController:vc animated:NO completion:nil];
+        
+    }
+    
+    if (value == 2) {
+        NSLog(@"push");
+        UIViewController *vc = [[CameraCaptureViewController alloc] init];
+        [self.navigationController presentViewController:vc animated:NO completion:nil];
+        
+    }
+    
+
     if (![PFUser currentUser]) { // No user logged in
         // Create the log in view controller
         PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
@@ -68,9 +89,13 @@ static const int kScrollViewTagBase       = 500;
         
         // Present the log in view controller
         [self presentViewController:logInViewController animated:YES completion:NULL];
+        
+        
     }
     
 }
+
+
 
 #pragma mark - PFLogInViewControllerDelegate
 
@@ -141,9 +166,17 @@ static const int kScrollViewTagBase       = 500;
 
 
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    CGRect labelFrame = CGRectMake( 0, self.view.bounds.size.height/4, 320, 30 );
+    label = [[UILabel alloc] initWithFrame: labelFrame];
+    [label setText: @""];
+    label.font = [UIFont fontWithName:@"Helvetica" size:30];
+    label.textAlignment = NSTextAlignmentCenter;
+    [label setTextColor: [UIColor whiteColor]];
     
     touchHappened = 0;
     
@@ -197,6 +230,9 @@ static const int kScrollViewTagBase       = 500;
     [self createScroll];
     
     
+   
+    
+    
     
     NSLog(@"%lu",(unsigned long) imageDataArray);
     
@@ -204,6 +240,22 @@ static const int kScrollViewTagBase       = 500;
 
 - (void)createScroll {
     
+   //[self.clipView removeFromSuperview];
+   // [self.scrollView removeFromSuperview];
+   // [self.pageControl removeFromSuperview];
+    imageDataArray = nil;
+    imageDataArraySecond = nil;
+    imageDataArrayBlurred = nil;
+    verbArray = nil;
+    userArray = nil;
+    [sv removeFromSuperview];
+    [glassView removeFromSuperview];
+    [glassViewR removeFromSuperview];
+    [left removeFromSuperview];
+    [right removeFromSuperview];
+    [snapButton removeFromSuperview];
+    [menuButton removeFromSuperview];
+    [Label removeFromSuperview];
     
     
     // Do any additional setup after loading the view, typically from a nib.
@@ -245,6 +297,8 @@ static const int kScrollViewTagBase       = 500;
     hud.labelText = @"Loading...";
     [hud show:YES];
     
+
+    
     
     PFQuery *query = [PFQuery queryWithClassName:@"UserPhotos"];
     query.limit = 10;
@@ -273,23 +327,7 @@ static const int kScrollViewTagBase       = 500;
                 NSString *user = object[@"user"];
                 [userArray addObject:user];
                 
-                PFQuery *query = [PFQuery queryWithClassName:@"User"];
-                [query whereKey:@"username" equalTo:user];
-                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (!error) {
-                        // The find succeeded.
-                        NSLog(@"Successfully retrieved %d scores.", objects.count);
-                        // Do something with the found objects
-                        for (PFObject *object in objects) {
-                            NSString *username = object[@"username"];
-                            NSLog(@"This is the username %@", username);
-                        }
-                    } else {
-                        // Log details of the failure
-                        NSLog(@"Error: %@ %@", error, [error userInfo]);
-                    }
-                }];
-
+                
                 
           
               PFFile *theImage = [object objectForKey:@"firstImage"];
@@ -352,10 +390,10 @@ static const int kScrollViewTagBase       = 500;
     glassView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
     [self.view addSubview:glassView];
     
-    UIView *left = [[UIView alloc] initWithFrame:CGRectMake(-130, 20, 200, 47)];
+    left = [[UIView alloc] initWithFrame:CGRectMake(-130, 20, 200, 47)];
     left.backgroundColor = [UIColor whiteColor];
     left.layer.cornerRadius = 23.f;
-    left.alpha = 0.005;
+    left.alpha = 0.05;
     [self.view addSubview:left];
         
     
@@ -365,18 +403,19 @@ static const int kScrollViewTagBase       = 500;
     glassViewR.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
     [self.view addSubview:glassViewR];
     
-    UIView *Right = [[UIView alloc] initWithFrame:CGRectMake(250, 20, 200, 47)];
-    Right.backgroundColor = [UIColor whiteColor];
-    Right.layer.cornerRadius = 23.f;
-    Right.alpha = 0.005;
-    [self.view addSubview:Right];
+    right = [[UIView alloc] initWithFrame:CGRectMake(250, 20, 200, 47)];
+    right.backgroundColor = [UIColor whiteColor];
+    right.layer.cornerRadius = 23.f;
+    right.alpha = 0.05;
+    [self.view addSubview:right];
         
         
 
     }
     [self.view addSubview:snapButton];
     [self.view addSubview:menuButton];
-    
+    [self.view addSubview: label];
+
     
   
 
@@ -447,19 +486,53 @@ static const int kScrollViewTagBase       = 500;
                      NSLog(@"%@", greenText);
 
                      
-                    Label = [[UILabel alloc] initWithFrame:CGRectMake(60, (self.view.bounds.size.height)-87, 200, (100))];
+                    Label = [[UILabel alloc] initWithFrame:CGRectMake(10, -35, 300, (self.view.bounds.size.height))];
                      Label.backgroundColor = [UIColor clearColor];
-                     Label.textAlignment = NSTextAlignmentCenter;
+                    Label.textAlignment = NSTextAlignmentCenter;
+                     NSString *redText = @"I am ";
+                     Label.textColor = [UIColor whiteColor];
+                     Label.text = redText;
+                     Label.shadowColor = [UIColor blackColor];
+                     Label.shadowOffset = CGSizeMake(1.0, 1.0);
+                     Label.font = [UIFont fontWithName:@"Proxima Nova" size:55];
+                     [sv addSubview:Label];
                      
-                     NSString *redText = @"I am";
+                     Label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 35, 300, (self.view.bounds.size.height))];
+                     Label2.backgroundColor = [UIColor clearColor];
+                     Label2.textAlignment = NSTextAlignmentCenter;
                      greenText = [verbArray objectAtIndex:val];
                      
-                     NSString *text = [NSString stringWithFormat:@"%@ %@",
-                                       redText,
-                                       greenText];
+                     if ([greenText isEqual: @"at +"]) {
+                         greenColor = [UIColor colorWithRed:0 green:1 blue:0.498 alpha:1];
+                     }
+                     if ([greenText isEqual: @"with +"]) {
+                         greenColor = [UIColor colorWithRed:0.043 green:0.71 blue:1 alpha:1];
+                     }
+                     if ([greenText isEqual: @"feeling +"]) {
+                         greenColor = [UIColor colorWithRed:0.898 green:0.247 blue:0.325 alpha:1];
+                         
+                     }
+                     if ([greenText isEqual: @"watching +"]) {
+                         greenColor = [UIColor colorWithRed:1 green:0.49 blue:0.251 alpha:1];
+                         
+                     }
+                     if ([greenText isEqual: @"eating +"]) {
+                         greenColor = [UIColor colorWithRed:0.729 green:0.333 blue:0.827 alpha:1];
+                         
+                     }
+                     if ([secondText isEqual: @"reading +"]) {
+                         greenColor = [UIColor colorWithRed:0.318 green:0.498 blue:0.643 alpha:1];
+                         
+                     }
+
+                     Label2.text = greenText;
+                     Label2.textColor = greenColor;
+                     Label2.shadowColor = [UIColor blackColor];
+                     Label2.shadowOffset = CGSizeMake(1.0, 1.0);
+                     Label2.font = [UIFont fontWithName:@"Proxima Nova" size:55];
+                     [sv addSubview:Label2];
                      
-                     
-                     // Define general attributes for the entire text
+                 /*    // Define general attributes for the entire text
                      NSDictionary *attribs = @{
                                                NSForegroundColorAttributeName: Label.textColor,
                                                NSFontAttributeName: Label.font
@@ -505,10 +578,9 @@ static const int kScrollViewTagBase       = 500;
                      [attributedText setAttributes:@{NSForegroundColorAttributeName:greenColor}
                                              range:greenTextRange];
                      Label.attributedText = attributedText;
-                     Label.shadowColor = [UIColor blackColor];
-                     Label.shadowOffset = CGSizeMake(1.0, 1.0);
-                     Label.font = [UIFont fontWithName:@"Helvetica" size:23];
-                     [sv addSubview:Label];
+                  
+                  */
+                   
                      
 
                      heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -774,8 +846,11 @@ static const int kScrollViewTagBase       = 500;
 
 - (void)snapImage:(id)sender {
     
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:0 forKey:@"integerKey"];
+   
     UIViewController *vc = [[CameraCaptureViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)menu:(id)sender {
@@ -805,6 +880,34 @@ static const int kScrollViewTagBase       = 500;
     if (scrollView != self.scrollView) {
         float percentage = scrollView.contentOffset.y / (scrollView.contentSize.height - scrollView.bounds.size.height);
         [self.pageControl updateScrollerAtPercentage:percentage animated:YES];
+        
+    
+    }
+    
+   
+
+    
+    CGPoint	p =self.scrollView.contentOffset;
+    NSLog(@"x = %f, y = %f", p.x, p.y);
+    
+    if (p.y > -70.f) {
+        NSLog(@"hit");
+        [label setText: @""];
+        
+    }
+    if (p.y < -70.f) {
+        NSLog(@"hit");
+        [label setText: @"Pull to refresh!"];
+
+    }
+    if (p.y < -120.f) {
+        NSLog(@"hit me");
+        [label setText: @"Release to refresh!"];
+        [self createScroll];
+        
+    }
+    if (p.y == -112.f) {
+        [self createScroll];
     }
 }
 
