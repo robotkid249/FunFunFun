@@ -52,6 +52,10 @@ static const int kScrollViewTagBase       = 500;
 
 
 - (void)viewDidAppear:(BOOL)animated {
+    
+    
+    
+    
     [super viewDidAppear:animated];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -93,7 +97,8 @@ static const int kScrollViewTagBase       = 500;
         
     }
     
-    [self succeeded];
+    [self createScroll];
+    
     
 }
 
@@ -242,12 +247,17 @@ static const int kScrollViewTagBase       = 500;
 
 - (void)createScroll {
     
+    
     //[self.clipView removeFromSuperview];
     // [self.scrollView removeFromSuperview];
     // [self.pageControl removeFromSuperview];
     imageDataArray = nil;
     imageDataArraySecond = nil;
     imageDataArrayBlurred = nil;
+    userArray = nil;
+    timestampArray = nil;
+    
+    
     verbArray = nil;
     userArray = nil;
     [sv removeFromSuperview];
@@ -258,6 +268,11 @@ static const int kScrollViewTagBase       = 500;
     [snapButton removeFromSuperview];
     [menuButton removeFromSuperview];
     [Label removeFromSuperview];
+    
+    UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(-100, -100, 640, 1136)];
+    bg.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:bg];
+    
     
     
     // Do any additional setup after loading the view, typically from a nib.
@@ -292,6 +307,8 @@ static const int kScrollViewTagBase       = 500;
     imageDataArrayBlurred = [NSMutableArray array];
     verbArray = [NSMutableArray array];
     userArray = [NSMutableArray array];
+    captionArray = [NSMutableArray array];
+    timestampArray = [NSMutableArray array];
     
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -299,13 +316,40 @@ static const int kScrollViewTagBase       = 500;
     hud.labelText = @"Loading...";
     [hud show:YES];
     
-    
+    /*   if (glassView == NULL || glassViewR == NULL) {
+     glassView = [[LFGlassView alloc] initWithFrame:(CGRect){ -130, 20, 200, 47 }];
+     glassView.backgroundColor = [UIColor whiteColor];
+     glassView.layer.cornerRadius = 23.f;
+     glassView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
+     [self.view addSubview:glassView];
+     
+     left = [[UIView alloc] initWithFrame:CGRectMake(-130, 20, 200, 47)];
+     left.backgroundColor = [UIColor whiteColor];
+     left.layer.cornerRadius = 23.f;
+     left.alpha = 0.05;
+     [self.view addSubview:left];
+     
+     
+     glassViewR = [[LFGlassView alloc] initWithFrame:(CGRect){ 250, 20, 200, 47 }];
+     glassViewR.backgroundColor = [UIColor whiteColor];
+     glassViewR.layer.cornerRadius = 23.f;
+     glassViewR.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
+     [self.view addSubview:glassViewR];
+     
+     right = [[UIView alloc] initWithFrame:CGRectMake(250, 20, 200, 47)];
+     right.backgroundColor = [UIColor whiteColor];
+     right.layer.cornerRadius = 23.f;
+     right.alpha = 0.05;
+     [self.view addSubview:right];
+     }
+     */
     
     
     PFQuery *query = [PFQuery queryWithClassName:@"UserPhotos"];
     query.limit = 10;
     //[query whereKey:@"Hidden" equalTo:@];
     [query orderByDescending:@"updatedAt"];
+    
     query.cachePolicy = kPFCachePolicyNetworkElseCache;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -326,8 +370,19 @@ static const int kScrollViewTagBase       = 500;
                 [verbArray addObject:verb];
                 
                 
+                
+                if (object[@"Caption"] == NULL) {
+                    caption  = @"";
+                } else {
+                    caption = object[@"Caption"];
+                }
+                
+                [captionArray addObject:caption];
+                
                 NSString *user = object[@"user"];
                 [userArray addObject:user];
+                
+                
                 
                 
                 
@@ -362,6 +417,7 @@ static const int kScrollViewTagBase       = 500;
     
     
     
+    
     for (i = 0; i < 10; i++) {
         
         
@@ -381,42 +437,12 @@ static const int kScrollViewTagBase       = 500;
     }
     
     
-    
     self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, currentY);
-    
-    
     
     [self.view addSubview:letterLabel];
     
-    if (glassView == NULL || glassViewR == NULL) {
-        glassView = [[LFGlassView alloc] initWithFrame:(CGRect){ -130, 20, 200, 47 }];
-        glassView.backgroundColor = [UIColor whiteColor];
-        glassView.layer.cornerRadius = 23.f;
-        glassView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
-        [self.view addSubview:glassView];
-        
-        left = [[UIView alloc] initWithFrame:CGRectMake(-130, 20, 200, 47)];
-        left.backgroundColor = [UIColor whiteColor];
-        left.layer.cornerRadius = 23.f;
-        left.alpha = 0.05;
-        [self.view addSubview:left];
-        
-        
-        glassViewR = [[LFGlassView alloc] initWithFrame:(CGRect){ 250, 20, 200, 47 }];
-        glassViewR.backgroundColor = [UIColor whiteColor];
-        glassViewR.layer.cornerRadius = 23.f;
-        glassViewR.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
-        [self.view addSubview:glassViewR];
-        
-        right = [[UIView alloc] initWithFrame:CGRectMake(250, 20, 200, 47)];
-        right.backgroundColor = [UIColor whiteColor];
-        right.layer.cornerRadius = 23.f;
-        right.alpha = 0.05;
-        [self.view addSubview:right];
-        
-        
-        
-    }
+    
+    
     [self.view addSubview:snapButton];
     [self.view addSubview:menuButton];
     [self.view addSubview: label];
@@ -449,12 +475,9 @@ static const int kScrollViewTagBase       = 500;
         if (imageDataArray.count == 10) {
             NSLog(@"good");
             
-            
             for (int val = 0; val < 10; val++) {
                 
                 if (sv.tag == val) {
-                    
-                    
                     
                     
                     
@@ -490,6 +513,38 @@ static const int kScrollViewTagBase       = 500;
                     
                     
                     [sv addSubview:button];
+                    
+                    UILabel *captionLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, (self.view.bounds.size.height-100), 260, 100)];
+                    captionLabel.numberOfLines = 4;
+                    NSString *captionText = [captionArray objectAtIndex:val];
+                    [captionLabel setText:captionText];
+                    captionLabel.shadowColor = [UIColor blackColor];
+                    captionLabel.shadowOffset = CGSizeMake(1.0, 1.0);
+                    captionLabel.backgroundColor = [UIColor clearColor];
+                    captionLabel.textAlignment = NSTextAlignmentLeft;
+                    UIColor *color = [UIColor whiteColor];
+                    [captionLabel setTextColor:color];
+                    captionLabel.font = [UIFont fontWithName:@"Proxima Nova" size:15];
+                    [sv addSubview:captionLabel];
+                    [sv bringSubviewToFront:captionLabel];
+                    
+                    
+                    
+                    /*
+                     UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, (self.view.bounds.size.height-120), 270, 100)];
+                     userLabel.numberOfLines = 1;
+                     NSString *userText = [userArray objectAtIndex:val];
+                     [userLabel setText:userText];
+                     userLabel.shadowColor = [UIColor blackColor];
+                     userLabel.shadowOffset = CGSizeMake(1.0, 1.0);
+                     userLabel.backgroundColor = [UIColor clearColor];
+                     userLabel.textAlignment = NSTextAlignmentLeft;
+                     [userLabel setTextColor:color];
+                     userLabel.font = [UIFont fontWithName:@"Proxima Nova" size:15];
+                     [sv addSubview:userLabel];
+                     [sv bringSubviewToFront:userLabel];*/
+                    
+                    
                     greenText = [verbArray objectAtIndex:val];
                     NSLog(@"%@", greenText);
                     
@@ -542,49 +597,59 @@ static const int kScrollViewTagBase       = 500;
                     
                     
                     
-                    
-                    heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                    [heartButton setImage:[UIImage imageNamed:@"like.png"] forState:UIControlStateNormal];
-                    heartButton.frame = CGRectMake(250, (self.view.bounds.size.height)-55, 65, 35);
-                    heartButton.contentMode = UIViewContentModeScaleAspectFit;
-                    [heartButton addTarget:self
-                                    action:@selector(heart:)
-                          forControlEvents:UIControlEventTouchUpInside];
-                    heartButton.tag = val;
-                    [sv addSubview:heartButton];
-                    [sv bringSubviewToFront:heartButton];
-                    
-                    
-                    
-                    
-                    
-                    menButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                    menButton.frame = CGRectMake(5, (self.view.bounds.size.height)-55, 65, 35);
-                    [menButton setImage:[UIImage imageNamed:@"more.png"] forState:UIControlStateNormal];
-                    menButton.contentMode = UIViewContentModeScaleAspectFit;
-                    [menButton addTarget:self
-                                  action:@selector(men:)
-                        forControlEvents:UIControlEventTouchUpInside];
-                    menButton.tag = val;
-                    [sv addSubview:menButton];
-                    
-                    [sv bringSubviewToFront:heartButton];
-                    [sv bringSubviewToFront:menButton];
+                    /*     heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                     [heartButton setImage:[UIImage imageNamed:@"like.png"] forState:UIControlStateNormal];
+                     heartButton.frame = CGRectMake(250, (self.view.bounds.size.height)-55, 65, 35);
+                     heartButton.contentMode = UIViewContentModeScaleAspectFit;
+                     [heartButton addTarget:self
+                     action:@selector(heart:)
+                     forControlEvents:UIControlEventTouchUpInside];
+                     heartButton.tag = val;
+                     [sv addSubview:heartButton];
+                     [sv bringSubviewToFront:heartButton];
+                     
+                     
+                     
+                     
+                     
+                     menButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                     menButton.frame = CGRectMake(5, (self.view.bounds.size.height)-55, 65, 35);
+                     [menButton setImage:[UIImage imageNamed:@"more.png"] forState:UIControlStateNormal];
+                     menButton.contentMode = UIViewContentModeScaleAspectFit;
+                     [menButton addTarget:self
+                     action:@selector(men:)
+                     forControlEvents:UIControlEventTouchUpInside];
+                     menButton.tag = val;
+                     [sv addSubview:menButton];
+                     
+                     [sv bringSubviewToFront:heartButton];
+                     [sv bringSubviewToFront:menButton];*/
                     
                     [self.view addSubview:letterLabel];
                     
-                    UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(-100, -100, self.view.bounds.size.width*2, self.view.bounds.size.height*2)];
-                    bg.backgroundColor = [UIColor blackColor];
-                    [self.view addSubview:bg];
-                    [self.view sendSubviewToBack:bg];
                     
                     
                 }
                 
             }
+            
+            
         }
         
     }
+    
+    
+    
+    
+    
+    /*  [self.view bringSubviewToFront:glassView];
+     [self.view bringSubviewToFront:left];
+     [self.view bringSubviewToFront:glassViewR];
+     [self.view bringSubviewToFront:right];*/
+    
+    
+    
+    
 }
 
 - (void)_timerFired {
@@ -749,21 +814,24 @@ static const int kScrollViewTagBase       = 500;
     
     if (p.y > -70.f) {
         NSLog(@"hit");
-        [label setText: @""];
+        letterLabel.font = [UIFont fontWithName:@"Remachine Script Personal Use" size:50];
+        [letterLabel setText: @"Heartwood"];
         
     }
     if (p.y < -70.f) {
         NSLog(@"hit");
-        [label setText: @"Pull to refresh!"];
+        letterLabel.font = [UIFont fontWithName:@"Proxima Nova" size:30];
+        [letterLabel setText: @"Pull to refresh!"];
+        
+        
+    }
+    if (p.y < -90.f) {
+        NSLog(@"hit me");
+        letterLabel.font = [UIFont fontWithName:@"Proxima Nova" size:30];
+        [letterLabel setText: @"A little more!"];
         
     }
     if (p.y < -120.f) {
-        NSLog(@"hit me");
-        [label setText: @"Release to refresh!"];
-        [self createScroll];
-        
-    }
-    if (p.y == -112.f) {
         [self createScroll];
     }
 }

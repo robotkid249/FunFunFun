@@ -22,6 +22,11 @@
     NSMutableArray *imageDataArraySecond;
     NSMutableArray *imageDataArrayBlurred;
     NSMutableArray *verbArray;
+    NSMutableArray *captionArray;
+    NSMutableArray *timestampArray;
+    NSString *caption;
+    
+    
     UIImageView *first;
     UIImageView *second;
     UIImage *imgThing2;
@@ -54,7 +59,9 @@
     LFGlassView *glassViewLD;
     LFGlassView *glassViewRD;
     LFGlassView *heartGlass;
-
+    LFGlassView *blurView;
+    NSString *userId;
+    
 }
 
 
