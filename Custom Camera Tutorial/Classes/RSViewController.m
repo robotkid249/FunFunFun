@@ -74,7 +74,7 @@ static const int kScrollViewTagBase       = 500;
         
     }
     
-
+    
     if (![PFUser currentUser]) { // No user logged in
         // Create the log in view controller
         PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
@@ -92,6 +92,8 @@ static const int kScrollViewTagBase       = 500;
         
         
     }
+    
+    [self succeeded];
     
 }
 
@@ -207,8 +209,8 @@ static const int kScrollViewTagBase       = 500;
     [self.view addSubview:menuButton];
     
     
-
-
+    
+    
     
     
     letterLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, -5, 200, 100)];
@@ -230,7 +232,7 @@ static const int kScrollViewTagBase       = 500;
     [self createScroll];
     
     
-   
+    
     
     
     
@@ -240,9 +242,9 @@ static const int kScrollViewTagBase       = 500;
 
 - (void)createScroll {
     
-   //[self.clipView removeFromSuperview];
-   // [self.scrollView removeFromSuperview];
-   // [self.pageControl removeFromSuperview];
+    //[self.clipView removeFromSuperview];
+    // [self.scrollView removeFromSuperview];
+    // [self.pageControl removeFromSuperview];
     imageDataArray = nil;
     imageDataArraySecond = nil;
     imageDataArrayBlurred = nil;
@@ -290,14 +292,14 @@ static const int kScrollViewTagBase       = 500;
     imageDataArrayBlurred = [NSMutableArray array];
     verbArray = [NSMutableArray array];
     userArray = [NSMutableArray array];
-
+    
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.labelText = @"Loading...";
     [hud show:YES];
     
-
+    
     
     
     PFQuery *query = [PFQuery queryWithClassName:@"UserPhotos"];
@@ -316,12 +318,12 @@ static const int kScrollViewTagBase       = 500;
                 
                 
                 
-               if (object[@"verb"] == NULL) {
+                if (object[@"verb"] == NULL) {
                     verb = @"";
                 } else {
-                   verb = object[@"verb"];
-               }
-             [verbArray addObject:verb];
+                    verb = object[@"verb"];
+                }
+                [verbArray addObject:verb];
                 
                 
                 NSString *user = object[@"user"];
@@ -329,21 +331,21 @@ static const int kScrollViewTagBase       = 500;
                 
                 
                 
-          
-              PFFile *theImage = [object objectForKey:@"firstImage"];
+                
+                PFFile *theImage = [object objectForKey:@"firstImage"];
                 NSData *imageData = [theImage getData];
                 image = [UIImage imageWithData:imageData];
                 [imageDataArray addObject:image];
-           
+                
                 PFFile *theImage2 = [object objectForKey:@"secondImage"];
                 NSData *imageData2 = [theImage2 getData];
                 image2 = [UIImage imageWithData:imageData2];
-               [imageDataArraySecond addObject:image2];
+                [imageDataArraySecond addObject:image2];
                 
                 PFFile *blurredImageFile = [object objectForKey:@"firstImage"];
                 NSData *blurredImageData = [blurredImageFile getData];
                 blurredImage = [SBlur blur:[UIImage imageWithData:blurredImageData] blurRadius:20.f];
-               [imageDataArrayBlurred addObject:blurredImage];
+                [imageDataArrayBlurred addObject:blurredImage];
                 
                 NSLog(@"Photos %@", userArray);
                 
@@ -374,52 +376,55 @@ static const int kScrollViewTagBase       = 500;
         currentY += self.view.bounds.size.height;
         
         
-     
+        
         
     }
+    
     
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, currentY);
     
+    
+    
     [self.view addSubview:letterLabel];
     
     if (glassView == NULL || glassViewR == NULL) {
-    glassView = [[LFGlassView alloc] initWithFrame:(CGRect){ -130, 20, 200, 47 }];
-    glassView.backgroundColor = [UIColor whiteColor];
-    glassView.layer.cornerRadius = 23.f;
-    glassView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
-    [self.view addSubview:glassView];
-    
-    left = [[UIView alloc] initWithFrame:CGRectMake(-130, 20, 200, 47)];
-    left.backgroundColor = [UIColor whiteColor];
-    left.layer.cornerRadius = 23.f;
-    left.alpha = 0.05;
-    [self.view addSubview:left];
+        glassView = [[LFGlassView alloc] initWithFrame:(CGRect){ -130, 20, 200, 47 }];
+        glassView.backgroundColor = [UIColor whiteColor];
+        glassView.layer.cornerRadius = 23.f;
+        glassView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
+        [self.view addSubview:glassView];
         
-    
-    glassViewR = [[LFGlassView alloc] initWithFrame:(CGRect){ 250, 20, 200, 47 }];
-    glassViewR.backgroundColor = [UIColor whiteColor];
-    glassViewR.layer.cornerRadius = 23.f;
-    glassViewR.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
-    [self.view addSubview:glassViewR];
-    
-    right = [[UIView alloc] initWithFrame:CGRectMake(250, 20, 200, 47)];
-    right.backgroundColor = [UIColor whiteColor];
-    right.layer.cornerRadius = 23.f;
-    right.alpha = 0.05;
-    [self.view addSubview:right];
+        left = [[UIView alloc] initWithFrame:CGRectMake(-130, 20, 200, 47)];
+        left.backgroundColor = [UIColor whiteColor];
+        left.layer.cornerRadius = 23.f;
+        left.alpha = 0.05;
+        [self.view addSubview:left];
         
         
-
+        glassViewR = [[LFGlassView alloc] initWithFrame:(CGRect){ 250, 20, 200, 47 }];
+        glassViewR.backgroundColor = [UIColor whiteColor];
+        glassViewR.layer.cornerRadius = 23.f;
+        glassViewR.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
+        [self.view addSubview:glassViewR];
+        
+        right = [[UIView alloc] initWithFrame:CGRectMake(250, 20, 200, 47)];
+        right.backgroundColor = [UIColor whiteColor];
+        right.layer.cornerRadius = 23.f;
+        right.alpha = 0.05;
+        [self.view addSubview:right];
+        
+        
+        
     }
     [self.view addSubview:snapButton];
     [self.view addSubview:menuButton];
     [self.view addSubview: label];
-
     
-  
-
-
+    
+    
+    
+    
 }
 
 -(void)setRoundedView:(UIView *)roundedView toDiameter:(float)newSize;
@@ -444,185 +449,25 @@ static const int kScrollViewTagBase       = 500;
         if (imageDataArray.count == 10) {
             NSLog(@"good");
             
+            
             for (int val = 0; val < 10; val++) {
                 
-                 if (sv.tag == val) {
-                     
-                    
-                
-                blurredImage = [imageDataArrayBlurred objectAtIndex:val];
-                UIImage *imageToDisplay =
-                [UIImage imageWithCGImage:[blurredImage CGImage]
-                                    scale:1.0
-                              orientation: UIImageOrientationUp];
-                
-                thing = [imageDataArray objectAtIndex:val];
-                 thing2 = [imageDataArraySecond objectAtIndex:val];
-                 blurredImage = [imageDataArrayBlurred objectAtIndex:val];
-                
-                
-                button = [UIButton buttonWithType:UIButtonTypeCustom];
-                [button addTarget:self action:@selector(buttonTouched:) forControlEvents:UIControlEventTouchDown];
-                [button addTarget:self action:@selector(buttonTouchedUp:) forControlEvents:UIControlEventTouchUpInside];
-                [button addTarget:self action:@selector(buttonTouchedUp:) forControlEvents:UIControlEventTouchCancel];
-                
-                button.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
-                //thing = [imageDataArray objectAtIndex:val];
-                // thing2 = [imageDataArraySecond objectAtIndex:val];
-                // blurredImage = [imageDataArrayBlurred objectAtIndex:val];
-                button.tag = val;
-                //   [button setImage:imageToDisplay forState:UIControlStateNormal];
-                // [button setImage:thing2 forState:UIControlStateHighlighted];
-                
-                first = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-                first.image = imageToDisplay;
-                first.tag = val;
-                first.alpha = 1.0;
-                [sv addSubview:first];
-
-        
-                [sv addSubview:button];
-                     greenText = [verbArray objectAtIndex:val];
-                     NSLog(@"%@", greenText);
-
-                     
-                    Label = [[UILabel alloc] initWithFrame:CGRectMake(10, -35, 300, (self.view.bounds.size.height))];
-                     Label.backgroundColor = [UIColor clearColor];
-                    Label.textAlignment = NSTextAlignmentCenter;
-                     NSString *redText = @"I am ";
-                     Label.textColor = [UIColor whiteColor];
-                     Label.text = redText;
-                     Label.shadowColor = [UIColor blackColor];
-                     Label.shadowOffset = CGSizeMake(1.0, 1.0);
-                     Label.font = [UIFont fontWithName:@"Proxima Nova" size:55];
-                     [sv addSubview:Label];
-                     
-                     Label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 35, 300, (self.view.bounds.size.height))];
-                     Label2.backgroundColor = [UIColor clearColor];
-                     Label2.textAlignment = NSTextAlignmentCenter;
-                     greenText = [verbArray objectAtIndex:val];
-                     
-                     if ([greenText isEqual: @"at +"]) {
-                         greenColor = [UIColor colorWithRed:0 green:1 blue:0.498 alpha:1];
-                     }
-                     if ([greenText isEqual: @"with +"]) {
-                         greenColor = [UIColor colorWithRed:0.043 green:0.71 blue:1 alpha:1];
-                     }
-                     if ([greenText isEqual: @"feeling +"]) {
-                         greenColor = [UIColor colorWithRed:0.898 green:0.247 blue:0.325 alpha:1];
-                         
-                     }
-                     if ([greenText isEqual: @"watching +"]) {
-                         greenColor = [UIColor colorWithRed:1 green:0.49 blue:0.251 alpha:1];
-                         
-                     }
-                     if ([greenText isEqual: @"eating +"]) {
-                         greenColor = [UIColor colorWithRed:0.729 green:0.333 blue:0.827 alpha:1];
-                         
-                     }
-                     if ([secondText isEqual: @"reading +"]) {
-                         greenColor = [UIColor colorWithRed:0.318 green:0.498 blue:0.643 alpha:1];
-                         
-                     }
-
-                     Label2.text = greenText;
-                     Label2.textColor = greenColor;
-                     Label2.shadowColor = [UIColor blackColor];
-                     Label2.shadowOffset = CGSizeMake(1.0, 1.0);
-                     Label2.font = [UIFont fontWithName:@"Proxima Nova" size:55];
-                     [sv addSubview:Label2];
-                     
-                 /*    // Define general attributes for the entire text
-                     NSDictionary *attribs = @{
-                                               NSForegroundColorAttributeName: Label.textColor,
-                                               NSFontAttributeName: Label.font
-                                               };
-                     NSMutableAttributedString *attributedText =
-                     [[NSMutableAttributedString alloc] initWithString:text
-                                                            attributes:attribs];
-                     
-                     // Red text attributes
-                     UIColor *redColor = [UIColor whiteColor];
-                     NSRange redTextRange = [text rangeOfString:redText];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
-                     [attributedText setAttributes:@{NSForegroundColorAttributeName:redColor}
-                                             range:redTextRange];
-                     
-                     // Green text attributes
-                     
-                     if ([greenText isEqual: @"at +"]) {
-                         greenColor = [UIColor colorWithRed:0 green:1 blue:0.498 alpha:1];
-                     }
-                     if ([greenText isEqual: @"with +"]) {
-                         greenColor = [UIColor colorWithRed:0.043 green:0.71 blue:1 alpha:1];
-                     }
-                     if ([greenText isEqual: @"feeling +"]) {
-                         greenColor = [UIColor colorWithRed:0.898 green:0.247 blue:0.325 alpha:1];
-                         
-                     }
-                     if ([greenText isEqual: @"watching +"]) {
-                         greenColor = [UIColor colorWithRed:1 green:0.49 blue:0.251 alpha:1];
-                         
-                     }
-                     if ([greenText isEqual: @"eating +"]) {
-                         greenColor = [UIColor colorWithRed:0.729 green:0.333 blue:0.827 alpha:1];
-                         
-                     }
-                     if ([secondText isEqual: @"reading +"]) {
-                         greenColor = [UIColor colorWithRed:0.318 green:0.498 blue:0.643 alpha:1];
-                         
-                     }
-                     
-                     
-                     
-                     NSRange greenTextRange = [text rangeOfString:greenText];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
-                     [attributedText setAttributes:@{NSForegroundColorAttributeName:greenColor}
-                                             range:greenTextRange];
-                     Label.attributedText = attributedText;
-                  
-                  */
-                   
-                     
-
-                     heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                     [heartButton setImage:[UIImage imageNamed:@"like.png"] forState:UIControlStateNormal];
-                     heartButton.frame = CGRectMake(250, (self.view.bounds.size.height)-55, 65, 35);
-                     heartButton.contentMode = UIViewContentModeScaleAspectFit;
-                     [heartButton addTarget:self
-                                     action:@selector(heart:)
-                           forControlEvents:UIControlEventTouchUpInside];
-                     heartButton.tag = val;
-                     [sv addSubview:heartButton];
-                     [sv bringSubviewToFront:heartButton];
-                     
-                  
-                     
-
-                     
-                     menButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                     menButton.frame = CGRectMake(5, (self.view.bounds.size.height)-55, 65, 35);
-                     [menButton setImage:[UIImage imageNamed:@"more.png"] forState:UIControlStateNormal];
-                     menButton.contentMode = UIViewContentModeScaleAspectFit;
-                     [menButton addTarget:self
-                                   action:@selector(men:)
-                         forControlEvents:UIControlEventTouchUpInside];
-                     menButton.tag = val;
-                     [sv addSubview:menButton];
-                     
-                     [sv bringSubviewToFront:heartButton];
-                     [sv bringSubviewToFront:menButton];
-                     
-                     [self.view addSubview:letterLabel];
-
-                
-            }
-            
-        }
-        }
-        
-  /*      if (imageDataArray.count == 4) {
-            for (int val = 0; val < 4; val++) {
                 if (sv.tag == val) {
-                    NSLog(@"Valueeeee%d",val);
+                    
+                    
+                    
+                    
+                    
+                    blurredImage = [imageDataArrayBlurred objectAtIndex:val];
+                    UIImage *imageToDisplay =
+                    [UIImage imageWithCGImage:[blurredImage CGImage]
+                                        scale:1.0
+                                  orientation: UIImageOrientationUp];
+                    
+                    thing = [imageDataArray objectAtIndex:val];
+                    thing2 = [imageDataArraySecond objectAtIndex:val];
+                    blurredImage = [imageDataArrayBlurred objectAtIndex:val];
+                    
                     
                     button = [UIButton buttonWithType:UIButtonTypeCustom];
                     [button addTarget:self action:@selector(buttonTouched:) forControlEvents:UIControlEventTouchDown];
@@ -631,19 +476,11 @@ static const int kScrollViewTagBase       = 500;
                     
                     button.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
                     //thing = [imageDataArray objectAtIndex:val];
-                   // thing2 = [imageDataArraySecond objectAtIndex:val];
-                   // blurredImage = [imageDataArrayBlurred objectAtIndex:val];
-                    UIImage *imageToDisplay =
-                    [UIImage imageWithCGImage:[blurredImage CGImage]
-                                        scale:1.0
-                                  orientation: UIImageOrientationRight];
+                    // thing2 = [imageDataArraySecond objectAtIndex:val];
+                    // blurredImage = [imageDataArrayBlurred objectAtIndex:val];
                     button.tag = val;
-                   //   [button setImage:imageToDisplay forState:UIControlStateNormal];
-                     // [button setImage:thing2 forState:UIControlStateHighlighted];
-                    
-                    
-                    [sv addSubview:button];
-                    
+                    //   [button setImage:imageToDisplay forState:UIControlStateNormal];
+                    // [button setImage:thing2 forState:UIControlStateHighlighted];
                     
                     first = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
                     first.image = imageToDisplay;
@@ -652,36 +489,26 @@ static const int kScrollViewTagBase       = 500;
                     [sv addSubview:first];
                     
                     
+                    [sv addSubview:button];
+                    greenText = [verbArray objectAtIndex:val];
+                    NSLog(@"%@", greenText);
                     
-                    Label = [[UILabel alloc] initWithFrame:CGRectMake(60, (self.view.bounds.size.height)-87, 200, (100))];
+                    
+                    Label = [[UILabel alloc] initWithFrame:CGRectMake(10, -35, 300, (self.view.bounds.size.height))];
                     Label.backgroundColor = [UIColor clearColor];
                     Label.textAlignment = NSTextAlignmentCenter;
+                    NSString *redText = @"I am ";
+                    Label.textColor = [UIColor whiteColor];
+                    Label.text = redText;
+                    Label.shadowColor = [UIColor blackColor];
+                    Label.shadowOffset = CGSizeMake(1.0, 1.0);
+                    Label.font = [UIFont fontWithName:@"Proxima Nova" size:55];
+                    [sv addSubview:Label];
                     
-                    NSString *redText = @"I am";
-                    NSString *greenText = [verbArray objectAtIndex:0];
-                    
-                    
-                    NSString *text = [NSString stringWithFormat:@"%@ %@",
-                                      redText,
-                                      greenText];
-                    
-                    
-                    // Define general attributes for the entire text
-                    NSDictionary *attribs = @{
-                                              NSForegroundColorAttributeName: Label.textColor,
-                                              NSFontAttributeName: Label.font
-                                              };
-                    NSMutableAttributedString *attributedText =
-                    [[NSMutableAttributedString alloc] initWithString:text
-                                                           attributes:attribs];
-                    
-                    // Red text attributes
-                    UIColor *redColor = [UIColor whiteColor];
-                    NSRange redTextRange = [text rangeOfString:redText];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
-                    [attributedText setAttributes:@{NSForegroundColorAttributeName:redColor}
-                                            range:redTextRange];
-                    
-                    // Green text attributes
+                    Label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 35, 300, (self.view.bounds.size.height))];
+                    Label2.backgroundColor = [UIColor clearColor];
+                    Label2.textAlignment = NSTextAlignmentCenter;
+                    greenText = [verbArray objectAtIndex:val];
                     
                     if ([greenText isEqual: @"at +"]) {
                         greenColor = [UIColor colorWithRed:0 green:1 blue:0.498 alpha:1];
@@ -701,23 +528,55 @@ static const int kScrollViewTagBase       = 500;
                         greenColor = [UIColor colorWithRed:0.729 green:0.333 blue:0.827 alpha:1];
                         
                     }
-                    if ([greenText isEqual: @"reading +"]) {
+                    if ([secondText isEqual: @"reading +"]) {
                         greenColor = [UIColor colorWithRed:0.318 green:0.498 blue:0.643 alpha:1];
                         
                     }
                     
+                    Label2.text = greenText;
+                    Label2.textColor = greenColor;
+                    Label2.shadowColor = [UIColor blackColor];
+                    Label2.shadowOffset = CGSizeMake(1.0, 1.0);
+                    Label2.font = [UIFont fontWithName:@"Proxima Nova" size:55];
+                    [sv addSubview:Label2];
                     
                     
-                    NSRange greenTextRange = [text rangeOfString:greenText];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
-                    [attributedText setAttributes:@{NSForegroundColorAttributeName:greenColor}
-                                            range:greenTextRange];
-                    Label.attributedText = attributedText;
-                    Label.shadowColor = [UIColor blackColor];
-                    Label.shadowOffset = CGSizeMake(1.0, 1.0);
-                    Label.font = [UIFont fontWithName:@"Helvetica" size:25];
-                    [sv addSubview:Label];
+                    
+                    
+                    heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                    [heartButton setImage:[UIImage imageNamed:@"like.png"] forState:UIControlStateNormal];
+                    heartButton.frame = CGRectMake(250, (self.view.bounds.size.height)-55, 65, 35);
+                    heartButton.contentMode = UIViewContentModeScaleAspectFit;
+                    [heartButton addTarget:self
+                                    action:@selector(heart:)
+                          forControlEvents:UIControlEventTouchUpInside];
+                    heartButton.tag = val;
+                    [sv addSubview:heartButton];
+                    [sv bringSubviewToFront:heartButton];
+                    
+                    
+                    
+                    
+                    
+                    menButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                    menButton.frame = CGRectMake(5, (self.view.bounds.size.height)-55, 65, 35);
+                    [menButton setImage:[UIImage imageNamed:@"more.png"] forState:UIControlStateNormal];
+                    menButton.contentMode = UIViewContentModeScaleAspectFit;
+                    [menButton addTarget:self
+                                  action:@selector(men:)
+                        forControlEvents:UIControlEventTouchUpInside];
+                    menButton.tag = val;
+                    [sv addSubview:menButton];
+                    
+                    [sv bringSubviewToFront:heartButton];
+                    [sv bringSubviewToFront:menButton];
                     
                     [self.view addSubview:letterLabel];
+                    
+                    UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(-100, -100, self.view.bounds.size.width*2, self.view.bounds.size.height*2)];
+                    bg.backgroundColor = [UIColor blackColor];
+                    [self.view addSubview:bg];
+                    [self.view sendSubviewToBack:bg];
                     
                     
                 }
@@ -725,10 +584,8 @@ static const int kScrollViewTagBase       = 500;
             }
         }
         
-   
-  */    
     }
-   }
+}
 
 - (void)_timerFired {
     
@@ -757,7 +614,7 @@ static const int kScrollViewTagBase       = 500;
 - (void)buttonTouched:(id)sender {
     
     
-   
+    
     
     NSLog(@"touched");
     
@@ -799,10 +656,10 @@ static const int kScrollViewTagBase       = 500;
         second.alpha = 0.0;
         [self.view addSubview:second];
         
-      /*  indicator = [[UIView alloc] initWithFrame:CGRectMake(300, 0, 20, self.view.bounds.size.height)];
-        indicator.backgroundColor = [UIColor blackColor];
-        indicator.alpha = 0.5;
-        [self.view addSubview:indicator];*/
+        /*  indicator = [[UIView alloc] initWithFrame:CGRectMake(300, 0, 20, self.view.bounds.size.height)];
+         indicator.backgroundColor = [UIColor blackColor];
+         indicator.alpha = 0.5;
+         [self.view addSubview:indicator];*/
         
         
         [self.view bringSubviewToFront:letterLabel];
@@ -810,7 +667,7 @@ static const int kScrollViewTagBase       = 500;
         [self.view bringSubviewToFront:glassView];
         [self.view bringSubviewToFront:menuButton];
         [self.view bringSubviewToFront:snapButton];
-
+        
         
     }
     
@@ -848,7 +705,7 @@ static const int kScrollViewTagBase       = 500;
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setInteger:0 forKey:@"integerKey"];
-   
+    
     UIViewController *vc = [[CameraCaptureViewController alloc] init];
     [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
@@ -881,11 +738,11 @@ static const int kScrollViewTagBase       = 500;
         float percentage = scrollView.contentOffset.y / (scrollView.contentSize.height - scrollView.bounds.size.height);
         [self.pageControl updateScrollerAtPercentage:percentage animated:YES];
         
-    
+        
     }
     
-   
-
+    
+    
     
     CGPoint	p =self.scrollView.contentOffset;
     NSLog(@"x = %f, y = %f", p.x, p.y);
@@ -898,7 +755,7 @@ static const int kScrollViewTagBase       = 500;
     if (p.y < -70.f) {
         NSLog(@"hit");
         [label setText: @"Pull to refresh!"];
-
+        
     }
     if (p.y < -120.f) {
         NSLog(@"hit me");
